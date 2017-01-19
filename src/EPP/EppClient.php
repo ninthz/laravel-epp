@@ -14,6 +14,7 @@ class EppClient
   private $port;
   private $timeout;
   private $protocol;
+  private $clTRID = '';
 
   public function __construct($host, $port = 700, $timeout = 1, $protocol = 'ssl')
   {
@@ -106,23 +107,33 @@ class EppClient
     }
   }
 
-  public function sendRequest($xml_template)
+  public function sendRequest($xml)
   {
+    $this->clTRID = $this->generateRandomString(32);
+    $xml = str_replace('{clTRID}', $this->clTRID, $xml);
     if($this->socket !== FALSE)
-      fwrite($this->socket, pack('N', (strlen($xml_template)+4)).$xml_template);
+      fwrite($this->socket, pack('N', (strlen($xml)+4)).$xml);
     return parseResponse($this->read());
   }
 
-  public function parseResponse($response, $rand_id = '') {
+  protected function parseResponse($response) {
     $dom = new XMLDOM();
     $dom->loadXML($response);
 
     if(($dom->GetCode() != 1000) && ($dom->GetCode() != 1500))
       return array("status" => false, "message" => 'Error: '.$dom->GetMessage());
-    else if(($dom->GetID() != $rand_id) && ($rand_id != ''))
-      return array("status" => false, "message" => 'Error: Invalid return code. ID Sent: EPP-'.$rand_id.' - ID Received: '.$dom->GetID());
     else
       return array("status" => true, "message" => $dom->GetMessage(), "dom" => $dom);
+  }
+
+  function generateRandomString($length) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
   }
 
 }

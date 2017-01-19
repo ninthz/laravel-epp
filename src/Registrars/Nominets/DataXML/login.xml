@@ -21,6 +21,6 @@
   				</svcExtension>
         </svcs>
       </login>
-      <clTRID>ABC-12345</clTRID>
+      <clTRID>{clTRID}</clTRID>
     </command>
   </epp>

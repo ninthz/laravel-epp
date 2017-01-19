@@ -38,7 +38,7 @@ class Nominet
     $this->data_xml_path = __DIR__.'/DataXML/';
   }
 
-  function __destruct()
+  public function __destruct()
   {
     $this->epp_client->disconnect();
   }
@@ -96,7 +96,8 @@ class Nominet
       '{pw}'    => $this->getPassword()
     ];
     $xml = $this->mapParameters($xml, $mappers);
-    return $this->epp_client->sendRequest($xml);
+    $response =  $this->epp_client->sendRequest($xml);
+    return $response['status'];
   }
 
   public function logout()
