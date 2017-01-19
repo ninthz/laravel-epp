@@ -1,0 +1,26 @@
+{
+    "name": "ninthz/laravel-epp",
+    "description": "Library that let you connect your laravel application to EPP and other provider domains service",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "vlucas/phpdotenv": "^2.4",
+        "nesbot/carbon": "^1.22",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "authors": [
+        {
+            "name": "Nuttasak Tawon",
+            "email": "nut@netearth.net"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+          "LaravelEPP\\": "src/"
+      }
+    },
+    "minimum-stability": "dev"
+}
