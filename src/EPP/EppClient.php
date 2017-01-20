@@ -17,7 +17,7 @@ class EppClient
   private $protocol;
   private $clTRID = '';
 
-  public function __construct($host, $port = 700, $timeout = 1, $protocol = 'ssl')
+  public function __construct($host, $port = 700, $timeout = 30, $protocol = 'ssl')
   {
     $this->host = $host;
     $this->port = $port;
@@ -108,16 +108,16 @@ class EppClient
     }
   }
 
-  public function sendRequest($xml)
+  public function sendRequest($xml, $pure_xml_response = false)
   {
     $this->clTRID = $this->generateRandomString(32);
     $xml = str_replace('{clTRID}', $this->clTRID, $xml);
     if($this->socket !== FALSE)
       fwrite($this->socket, pack('N', (strlen($xml)+4)).$xml);
-    return parseResponse($this->read());
+    return $this->parseResponse($this->read());
   }
 
-  protected function parseResponse($response) {
+  public function parseResponse($response) {
     $dom = new XMLDom();
     $dom->loadXML($response);
 

@@ -12,6 +12,6 @@
             <reseller:reference>{reference}</reseller:reference>
           </reseller:delete>
        </delete>
-       <clTRID>{clTRID}</clTRID>
+       <clTRID>EPP-{clTRID}</clTRID>
      </command>
    </epp>

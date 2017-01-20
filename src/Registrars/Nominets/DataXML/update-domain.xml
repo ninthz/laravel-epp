@@ -17,6 +17,6 @@
             <domain-ext:reseller>{reference}</domain-ext:reseller>
           </domain-ext:update>
         </extension>
-        <clTRID>{clTRID}</clTRID>
+        <clTRID>EPP-{clTRID}</clTRID>
       </command>
   </epp>

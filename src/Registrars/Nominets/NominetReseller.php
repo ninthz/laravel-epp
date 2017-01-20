@@ -27,14 +27,14 @@ class NominetReseller extends Nominet
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('create-reseller'));
       $mappers = [
-        '{reference}'    => $parameters['reference'],
-        '{trading_name}' => $parameters['trading_name'],
-        '{url}' => $parameters['url'],
-        '{email}' => $parameters['email'],
-        '{telephone}' => $parameters['telephone'],
+        '{reference}'    => $parameters['reference'] ?? '',
+        '{trading_name}' => $parameters['trading_name'] ?? '',
+        '{url}' => $parameters['url'] ?? '',
+        '{email}' => $parameters['email'] ?? '',
+        '{telephone}' => $parameters['telephone'] ?? '',
       ];
       $xml = $this->mapParameters($xml, $mappers);
-      return  $this->epp_client->sendRequest($xml);
+      return  $this->epp_client->sendRequest($xml, true);
     }
   }
 
@@ -43,7 +43,7 @@ class NominetReseller extends Nominet
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('delete-reseller'));
       $mappers = [
-        '{reference}' => $parameters['reference']
+        '{reference}' => $parameters['reference'] ?? ''
       ];
       $xml = $this->mapParameters($xml, $mappers);
       return  $this->epp_client->sendRequest($xml);
@@ -75,11 +75,11 @@ class NominetReseller extends Nominet
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('update-reseller'));
       $mappers = [
-        '{reference}'    => $parameters['reference'],
-        '{trading_name}' => $parameters['trading_name'],
-        '{url}' => $parameters['url'],
-        '{email}' => $parameters['email'],
-        '{telephone}' => $parameters['telephone'],
+        '{reference}'    => $parameters['reference'] ?? '',
+        '{trading_name}' => $parameters['trading_name'] ?? '',
+        '{url}' => $parameters['url'] ?? '',
+        '{email}' => $parameters['email'] ?? '',
+        '{telephone}' => $parameters['telephone'] ?? '',
       ];
       $xml = $this->mapParameters($xml, $mappers);
       return  $this->epp_client->sendRequest($xml);

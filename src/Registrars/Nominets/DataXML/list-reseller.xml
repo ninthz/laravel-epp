@@ -12,6 +12,6 @@
            fields="all">
          </reseller:list>
       </info>
-      <clTRID>{clTRID}</clTRID>
+      <clTRID>EPP-{clTRID}</clTRID>
     </command>
   </epp>

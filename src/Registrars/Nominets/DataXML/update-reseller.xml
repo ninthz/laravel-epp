@@ -16,6 +16,6 @@
             <reseller:voice>{telephone}</reseller:voice>
           </reseller:update>
        </update>
-       <clTRID>{clTRID}</clTRID>
+       <clTRID>EPP-{clTRID}</clTRID>
      </command>
    </epp>

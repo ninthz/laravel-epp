@@ -14,13 +14,12 @@
           <objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
   				<objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
   				<objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
-          <objURI>http://www.nominet.org.uk/epp/xml/nom-reseller-1.0</objURI>
   				<svcExtension>
   				      <extURI>http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0</extURI>
   							<extURI>http://www.nominet.org.uk/epp/xml/domain-nom-ext-1.1</extURI>
   				</svcExtension>
         </svcs>
       </login>
-      <clTRID>{clTRID}</clTRID>
+      <clTRID>EPP-{clTRID}</clTRID>
     </command>
   </epp>
