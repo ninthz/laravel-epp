@@ -3,6 +3,7 @@
 namespace LaravelEPP\EPP;
 
 use LaravelEPP\EPP\Exceptions\EppException;
+use LaravelEPP\EPP\Tools\XMLDom;
 
 /**
  * The class that use connect with EPP
@@ -117,7 +118,7 @@ class EppClient
   }
 
   protected function parseResponse($response) {
-    $dom = new XMLDOM();
+    $dom = new XMLDom();
     $dom->loadXML($response);
 
     if(($dom->GetCode() != 1000) && ($dom->GetCode() != 1500))

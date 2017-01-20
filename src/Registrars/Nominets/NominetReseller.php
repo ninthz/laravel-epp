@@ -50,25 +50,25 @@ class NominetReseller extends Nominet
     }
   }
 
-  function info($parameters)
-  {
-    if ($this->login()) {
-      $xml = file_get_contents($this->getDataXMLPath('info-reseller'));
-      $mappers = [
-        '{reference}' => $parameters['reference']
-      ];
-      $xml = $this->mapParameters($xml, $mappers);
-      return  $this->epp_client->sendRequest($xml);
-    }
-  }
+  // function info($parameters)
+  // {
+  //   if ($this->login()) {
+  //     $xml = file_get_contents($this->getDataXMLPath('info-reseller'));
+  //     $mappers = [
+  //       '{reference}' => $parameters['reference']
+  //     ];
+  //     $xml = $this->mapParameters($xml, $mappers);
+  //     return  $this->epp_client->sendRequest($xml);
+  //   }
+  // }
 
-  function list()
-  {
-    if ($this->login()) {
-      $xml = file_get_contents($this->getDataXMLPath('list-reseller'));
-      return  $this->epp_client->sendRequest($xml);
-    }
-  }
+  // function list()
+  // {
+  //   if ($this->login()) {
+  //     $xml = file_get_contents($this->getDataXMLPath('list-reseller'));
+  //     return  $this->epp_client->sendRequest($xml);
+  //   }
+  // }
 
   function update($parameters)
   {
