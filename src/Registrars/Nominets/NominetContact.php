@@ -27,7 +27,7 @@ class NominetContact extends Nominet
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('optout-contact'));
       $mappers = [
-        '{contact_reference}'    => $parameters['contact_reference'] ?? '',
+        '{contact_id}'    => $parameters['contact_id'] ?? '',
         '{opt_out}' => ($parameters['opt_out'] == true ? 'Y' : 'N'),
       ];
       $xml = $this->mapParameters($xml, $mappers);
@@ -40,7 +40,7 @@ class NominetContact extends Nominet
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('privacy-contact'));
       $mappers = [
-        '{contact_reference}'    => $parameters['contact_reference'] ?? '',
+        '{contact_id}'    => $parameters['contact_id'] ?? '',
         '{privacy}' => ($parameters['privacy'] == true ? '0' : '1'),
       ];
       $xml = $this->mapParameters($xml, $mappers);
@@ -51,9 +51,9 @@ class NominetContact extends Nominet
   function info($parameters)
   {
     if ($this->login()) {
-      $xml = file_get_contents($this->getDataXMLPath('privacy-contact'));
+      $xml = file_get_contents($this->getDataXMLPath('info-contact'));
       $mappers = [
-        '{contact_reference}'    => $parameters['contact_reference'] ?? ''
+        '{contact_id}'    => $parameters['contact_id'] ?? ''
       ];
       $xml = $this->mapParameters($xml, $mappers);
       return  $this->epp_client->sendRequest($xml);

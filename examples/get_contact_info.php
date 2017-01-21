@@ -14,8 +14,8 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $parameters = [
-  'domain' => 'ssldemosite.co.uk',
+  'contact_id' => '2E5B7DE5BB406-05',
 ];
 $response = $nc->info($parameters);
 
-var_dump($response);
+var_dump($response['dom']->getContactInfo());

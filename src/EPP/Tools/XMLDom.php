@@ -55,7 +55,7 @@ class XMLDom extends \DOMDocument {
 		return $this->getElementsByTagName("clTRID")->item(0)->nodeValue;
 	} // GetID()
 
-	public function GetDataItem($ns, $name, DOMElement $dom_element = null, $nodeIndex = 0) {
+	public function GetDataItem($ns, $name, $dom_element = null, $nodeIndex = 0) {
 		$dom_element = is_null($dom_element) ? $this : $dom_element;
 
 		if($dom_element->getElementsByTagNameNS($ns, $name)->length > $nodeIndex)
