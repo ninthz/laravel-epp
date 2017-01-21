@@ -112,8 +112,10 @@ class EppClient
   {
     $this->clTRID = $this->generateRandomString(32);
     $xml = str_replace('{clTRID}', $this->clTRID, $xml);
-    if($this->socket !== FALSE)
+    if ($this->socket !== FALSE)
       fwrite($this->socket, pack('N', (strlen($xml)+4)).$xml);
+    if ($pure_xml_response)
+      return $this->read();
     return $this->parseResponse($this->read());
   }
 

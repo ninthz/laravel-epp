@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
-        epp-1.0.xsd">
-     <command>
-       <create>
+  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <command>
+        <create>
           <reseller:create
-           xmlns:reseller="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0"
-           xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0 nom-reseller-1.0.xsd"/>
-            <reseller:reference>{reference}</reseller:reference>
-            <reseller:tradingName>{trading_name}</reseller:tradingName>
-            <reseller:url>{url}</reseller:url>
-            <reseller:email>{email}</reseller:email>
-            <reseller:voice>{telephone}</reseller:voice>
+              xmlns:reseller="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0"
+              xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0 nom-reseller-1.0.xsd">
+              <reseller:reference>{reference}</reseller:reference>
+              <reseller:tradingName>{tranding_name}</reseller:tradingName>
+              <reseller:url>{url}</reseller:url>
+    					<reseller:email>{email}</reseller:email>
+     					<reseller:voice>{telephone}</reseller:voice>
           </reseller:create>
-       </create>
-       <clTRID>EPP-{clTRID}</clTRID>
-     </command>
-   </epp>
+        </create>
+      <clTRID>EPP-{clTRID}</clTRID>
+    </command>
+ </epp>
