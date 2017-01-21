@@ -112,6 +112,7 @@ class XMLDom extends \DOMDocument {
 		$domain_info['roid'] 					= $this->GetDataItem($this->ns_domain, 'roid');
 		$domain_info['domain'] 				= $this->GetDataItem($this->ns_domain,'name');
 		$domain_info['reg_status'] 		= $this->GetDataItem($this->ns_domain_ext,'reg-status');
+		$domain_info['reseller'] 		= $this->GetDataItem($this->ns_domain_ext,'reseller');
 		$domain_info['registrant'] 		= $this->GetDataItem($this->ns_domain, 'registrant');
 
 		$domain_info['account'] 					  = [];

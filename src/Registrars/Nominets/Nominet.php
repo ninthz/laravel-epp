@@ -20,6 +20,8 @@ class Nominet
   protected $test_mode = false;
   protected $data_xml_path;
 
+  protected $logged_in = false;
+
   function __construct()
   {
     if(function_exists('config'))
@@ -40,6 +42,8 @@ class Nominet
 
   public function __destruct()
   {
+    if ($this->logged_in)
+      $this->logout();
     $this->epp_client->disconnect();
   }
 
@@ -100,13 +104,18 @@ class Nominet
     ];
     $xml = $this->mapParameters($xml, $mappers);
     $response =  $this->epp_client->sendRequest($xml);
+    if ($response['status'])
+      $this->logged_id = true;
     return $response["status"];
   }
 
   public function logout()
   {
     $xml = file_get_contents($this->getDataXMLPath('logout'));
-    return $this->epp_client->sendRequest($xml);
+    $response = $this->epp_client->sendRequest($xml);
+    if ($response['status'])
+      $this->logged_in = false;
+    return $response;
   }
 
   public function mapParameters($xml_template, $mappers)
