@@ -15,12 +15,8 @@ $nr->setPassword($password);
 
 
 $parameters = [
-  'reference' => '123456',
-  'trading_name' => 'Test Brand',
-  'url' => 'http://www.testnominet.co.uk',
-  'email' => 'support@testnominet.co.uk',
-  'telephone' => '+66123456789',
+  'reference' => '117419'
 ];
-$response = $nr->create($parameters);
+$response = $nr->delete($parameters);
 
 var_dump($response);

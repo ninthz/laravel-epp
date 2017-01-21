@@ -88,16 +88,19 @@ class Nominet
     return $this->data_xml_path.$filename;
   }
 
-  public function login()
+  public function login($reseller_access = false)
   {
     $xml = file_get_contents($this->getDataXMLPath('login'));
+    if ($reseller_access)
+      $xml = file_get_contents($this->getDataXMLPath('login-reseller-access'));
+
     $mappers = [
       '{clID}'  => $this->getUsername(),
       '{pw}'    => $this->getPassword()
     ];
     $xml = $this->mapParameters($xml, $mappers);
     $response =  $this->epp_client->sendRequest($xml);
-    return $response['status'];
+    return $response["status"];
   }
 
   public function logout()

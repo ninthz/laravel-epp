@@ -16,11 +16,11 @@ $nr->setPassword($password);
 
 $parameters = [
   'reference' => '123456',
-  'trading_name' => 'Test Brand',
-  'url' => 'http://www.testnominet.co.uk',
-  'email' => 'support@testnominet.co.uk',
-  'telephone' => '+66123456789',
+  'trading_name' => 'South West Broadband',
+  'url' => 'http://www.swbroadband.co.uk',
+  'email' => 'support@swbroadband.co.uk',
+  'telephone' => '0441872672050',
 ];
-$response = $nr->create($parameters);
+$response = $nr->update($parameters);
 
 var_dump($response);

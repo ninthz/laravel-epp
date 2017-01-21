@@ -24,7 +24,7 @@ class NominetReseller extends Nominet
 
   function create($parameters)
   {
-    if ($this->login()) {
+    if ($this->login(true)) {
       $xml = file_get_contents($this->getDataXMLPath('create-reseller'));
       $mappers = [
         '{reference}'    => $parameters['reference'] ?? '',
@@ -34,13 +34,13 @@ class NominetReseller extends Nominet
         '{telephone}' => $parameters['telephone'] ?? '',
       ];
       $xml = $this->mapParameters($xml, $mappers);
-      return  $this->epp_client->sendRequest($xml, true);
+      return  $this->epp_client->sendRequest($xml);
     }
   }
 
   function delete($parameters)
   {
-    if ($this->login()) {
+    if ($this->login(true)) {
       $xml = file_get_contents($this->getDataXMLPath('delete-reseller'));
       $mappers = [
         '{reference}' => $parameters['reference'] ?? ''
@@ -72,7 +72,7 @@ class NominetReseller extends Nominet
 
   function update($parameters)
   {
-    if ($this->login()) {
+    if ($this->login(true)) {
       $xml = file_get_contents($this->getDataXMLPath('update-reseller'));
       $mappers = [
         '{reference}'    => $parameters['reference'] ?? '',
