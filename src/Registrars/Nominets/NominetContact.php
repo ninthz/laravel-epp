@@ -31,7 +31,7 @@ class NominetContact extends Nominet
         '{opt_out}' => ($parameters['opt_out'] == true ? 'Y' : 'N'),
       ];
       $xml = $this->mapParameters($xml, $mappers);
-      return  $this->epp_client->sendRequest($xml);
+      return  $this->epp_client->sendRequest($xml,true);
     }
   }
 

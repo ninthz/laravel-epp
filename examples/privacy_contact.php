@@ -15,8 +15,8 @@ $nc->setPassword($password);
 
 $parameters = [
   'contact_id' => 'NEO_63785952',
-  'opt_out' => false
+  'privacy' => false
 ];
-$response = $nc->optOut($parameters);
+$response = $nc->privacy($parameters);
 
 var_dump($response);

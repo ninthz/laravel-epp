@@ -99,6 +99,7 @@ class XMLDom extends \DOMDocument {
 
 		$contact_info['voice'] 			= $this->GetDataItem($this->ns_contact, 'voice');
 		$contact_info['email'] 			= $this->GetDataItem($this->ns_contact, 'email');
+		$contact_info['disclose'] 	= $this->GetDataAttribute($this->ns_contact, 'disclose', 'flag');
 
 		// Nominet extension values
 		$contact_info['type'] 			= $this->GetDataItem($this->ns_contact_ext,'type');
