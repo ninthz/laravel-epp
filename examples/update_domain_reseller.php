@@ -15,8 +15,8 @@ $nd->setPassword($password);
 
 $parameters = [
   'reference' => '',
-  'domain' => 'ssldemosite.co.uk',
+  'domain' => '',
 ];
-$response = $nd->update($parameters);
+$response = $nd->updateReseller($parameters);
 
 var_dump($response);

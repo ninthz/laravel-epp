@@ -8,7 +8,7 @@
               xmlns:reseller="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0"
               xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0 nom-reseller-1.0.xsd">
               <reseller:reference>{reference}</reseller:reference>
-              <reseller:tradingName>{tranding_name}</reseller:tradingName>
+              <reseller:tradingName>{trading_name}</reseller:tradingName>
               <reseller:url>{url}</reseller:url>
     					<reseller:email>{email}</reseller:email>
      					<reseller:voice>{telephone}</reseller:voice>

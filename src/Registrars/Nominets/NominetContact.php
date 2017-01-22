@@ -11,18 +11,18 @@ use LaravelEPP\Registrars\Nominets\Nominet;
 class NominetContact extends Nominet
 {
 
-  function __construct()
+  public function __construct()
   {
     parent::__construct();
   }
 
-  function __destruct()
+  public function __destruct()
   {
     $this->logout();
     parent::__destruct();
   }
 
-  function optOut($parameters)
+  public function optOut($parameters)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('optout-contact'));
@@ -35,7 +35,7 @@ class NominetContact extends Nominet
     }
   }
 
-  function privacy($parameters)
+  public function privacy($parameters)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('privacy-contact'));
@@ -48,12 +48,25 @@ class NominetContact extends Nominet
     }
   }
 
-  function info($parameters)
+  public function info($parameters)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('info-contact'));
       $mappers = [
         '{contact_id}'    => $parameters['contact_id'] ?? ''
+      ];
+      $xml = $this->mapParameters($xml, $mappers);
+      return  $this->epp_client->sendRequest($xml);
+    }
+  }
+
+  public function updateType($parameters)
+  {
+    if ($this->login()) {
+      $xml = file_get_contents($this->getDataXMLPath('update-contact-type'));
+      $mappers = [
+        '{contact_id}'    => $parameters['contact_id'] ?? '',
+        '{type}'          => $parameters['type'] ?? ''
       ];
       $xml = $this->mapParameters($xml, $mappers);
       return  $this->epp_client->sendRequest($xml);

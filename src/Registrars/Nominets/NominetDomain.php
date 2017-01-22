@@ -11,18 +11,18 @@ use LaravelEPP\Registrars\Nominets\Nominet;
 class NominetDomain extends Nominet
 {
 
-  function __construct()
+  public function __construct()
   {
     parent::__construct();
   }
 
-  function __destruct()
+  public function __destruct()
   {
     $this->logout();
     parent::__destruct();
   }
 
-  function info($parameters)
+  public function info($parameters)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('info-domain'));
@@ -34,10 +34,10 @@ class NominetDomain extends Nominet
     }
   }
 
-  function update($parameters)
+  public function updateReseller($parameters)
   {
     if ($this->login()) {
-      $xml = file_get_contents($this->getDataXMLPath('update-domain'));
+      $xml = file_get_contents($this->getDataXMLPath('update-domain-reseller'));
       $mappers = [
         '{reference}'    => $parameters['reference'] ?? '',
         '{domain}' => $parameters['domain'] ?? '',
