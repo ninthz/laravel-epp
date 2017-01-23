@@ -31,7 +31,7 @@ class Nominet
         $this->timeout    = config('epp.nominet.timeout');
         $this->protocol   = config('epp.nominet.protocol');
 
-        $mode = ($this->test_mode ? 'live' : 'test');
+        $mode = ($this->test_mode ? 'test' : 'live');
         $this->host = config("epp.nominet.${mode}.host");
         $this->username = config("epp.nominet.${mode}.username");
         $this->password = config("epp.nominet.${mode}.password");
