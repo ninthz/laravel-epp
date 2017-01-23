@@ -4,9 +4,9 @@ require __DIR__.'/autoload.php';
 
 use LaravelEPP\Registrars\Nominets\NominetReseller;
 
-$username = getenv('NOMINET_TEST_USERNAME');
-$password = getenv('NOMINET_TEST_PASSWORD');
-$host = 'testbed-epp.nominet.org.uk';
+$username = getenv('NOMINET_USERNAME');
+$password = getenv('NOMINET_PASSWORD');
+$host = 'epp.nominet.org.uk';
 
 $nr = new NominetReseller();
 $nr->setHost($host);
@@ -15,11 +15,11 @@ $nr->setPassword($password);
 
 
 $parameters = [
-  'reference' => '123456',
-  'trading_name' => 'South West Broadband',
-  'url' => 'http://www.swbroadband.co.uk',
-  'email' => 'support@swbroadband.co.uk',
-  'telephone' => '0441872672050',
+  'reference' => '117419',
+  'trading_name' => 'NetEarth UK Ltd',
+  'url' => 'www.netearthone.co.uk',
+  'email' => 'support@netearthone.com',
+  'telephone' => '+44.8707707154',
 ];
 $response = $nr->update($parameters);
 

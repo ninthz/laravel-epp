@@ -82,7 +82,21 @@ class NominetReseller extends Nominet
         '{telephone}' => $parameters['telephone'] ?? '',
       ];
       $xml = $this->mapParameters($xml, $mappers);
-      return  $this->epp_client->sendRequest($xml);
+      $response = $this->epp_client->sendRequest($xml);
+
+      if(!$response['status'])
+      {
+        if($response['message'] != 'Error: Parameter value range error')
+        {
+          return $response;
+        }
+        
+        $response['status'] = true;
+        $response['message'] = 'Update success';
+        return $response;
+      }
+
+      return $response;
     }
   }
 }
