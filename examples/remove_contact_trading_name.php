@@ -13,9 +13,6 @@ $nc->setHost($host);
 $nc->setUsername($username);
 $nc->setPassword($password);
 
-$parameters = [
-  'contact_id' => 'TYDBLZ1KMD6ID-01',
-];
-$response = $nc->info($parameters);
+$response = $nc->removeTradingName('NEO_63785850');
 
-var_dump($response['dom']->getContactInfo());
+var_dump($response);

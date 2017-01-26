@@ -11,6 +11,10 @@ use LaravelEPP\Registrars\Nominets\Nominet;
 class NominetContact extends Nominet
 {
 
+  const CONTACT_TYPE_INDIVIDUAL = 'IND';
+
+  const CONTACT_TYPE_FOREIGN_INDIVIDUAL = 'FIND';
+
   public function __construct()
   {
     parent::__construct();
@@ -72,4 +76,26 @@ class NominetContact extends Nominet
       return  $this->epp_client->sendRequest($xml);
     }
   }
+
+  public function updateTradingName($parameters)
+  {
+    if ($this->login()) {
+      $xml = file_get_contents($this->getDataXMLPath('update-contact-trading-name'));
+      $mappers = [
+        '{contact_id}'    => $parameters['contact_id'] ?? '',
+        '{trading_name}'   => $parameters['trading_name'] ?? ''
+      ];
+      $xml = $this->mapParameters($xml, $mappers);
+      return  $this->epp_client->sendRequest($xml);
+    }
+  }
+
+  public function removeTradingName($contactId)
+  {
+    return $this->updateTradingName([
+      'contact_id' => $contactId,
+      'trading_name' => '',
+    ]);
+  }
+
 }

@@ -15,7 +15,8 @@ $nc->setPassword($password);
 
 $parameters = [
   'contact_id' => 'TYDBLZ1KMD6ID-01',
+  'trading_name' => '',
 ];
-$response = $nc->info($parameters);
+$response = $nc->updateTradingName($parameters);
 
-var_dump($response['dom']->getContactInfo());
+var_dump($response);
