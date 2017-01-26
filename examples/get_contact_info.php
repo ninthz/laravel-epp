@@ -14,7 +14,7 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $parameters = [
-  'contact_id' => 'TYDBLZ1KMD6ID-01',
+  'contact_id' => '2E5B7DE5BB406-05',
 ];
 $response = $nc->info($parameters);
 

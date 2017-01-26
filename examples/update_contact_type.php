@@ -14,8 +14,8 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $parameters = [
-  'contact_id' => 'NEO_63785850',
-  'type' => NominetContact::CONTACT_TYPE_INDIVIDUAL,
+  'contact_id' => '2E5B7DE5BB406-05',
+  'type' => NominetContact::CONTACT_TYPE_NON_UK_COPERATION,
 ];
 $response = $nc->updateType($parameters);
 

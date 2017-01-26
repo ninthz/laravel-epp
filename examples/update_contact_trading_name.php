@@ -14,8 +14,8 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $parameters = [
-  'contact_id' => 'TYDBLZ1KMD6ID-01',
-  'trading_name' => '',
+  'contact_id' => '2E5B7DE5BB406-05',
+  'trading_name' => 'Netearth',
 ];
 $response = $nc->updateTradingName($parameters);
 

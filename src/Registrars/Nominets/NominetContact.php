@@ -15,6 +15,10 @@ class NominetContact extends Nominet
 
   const CONTACT_TYPE_FOREIGN_INDIVIDUAL = 'FIND';
 
+  const CONTACT_TYPE_LIMITED = 'LTD';
+
+  const CONTACT_TYPE_NON_UK_COPERATION = 'FCORP';
+
   public function __construct()
   {
     parent::__construct();
