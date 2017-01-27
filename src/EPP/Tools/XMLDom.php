@@ -64,7 +64,7 @@ class XMLDom extends \DOMDocument {
 			return '';
 	} // GetDataItem()
 
-	public function GetDataAttribute($ns, $name, $attribute, DOMElement $dom_element = null) {
+	public function GetDataAttribute($ns, $name, $attribute, $dom_element = null) {
 		$dom_element = is_null($dom_element) ? $this : $dom_element;
 
 		if($dom_element->getElementsByTagNameNS($ns, $name)->length > 0) {
