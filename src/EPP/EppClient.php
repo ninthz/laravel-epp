@@ -17,6 +17,7 @@ class EppClient
   private $protocol;
   private $clTRID = '';
   private $xmlResponse;
+  private $xmlRequest;
 
   public function __construct($host, $port = 700, $timeout = 30, $protocol = 'ssl')
   {
@@ -112,9 +113,9 @@ class EppClient
   public function sendRequest($xml)
   {
     $this->clTRID = $this->generateRandomString(32);
-    $xml = str_replace('{clTRID}', $this->clTRID, $xml);
+    $this->xmlRequest = str_replace('{clTRID}', $this->clTRID, $xml);
     if ($this->socket !== FALSE)
-      fwrite($this->socket, pack('N', (strlen($xml)+4)).$xml);
+      fwrite($this->socket, pack('N', (strlen($this->xmlRequest)+4)).$this->xmlRequest);
     $this->xmlResponse = $this->read();
     return $this->parseResponse($this->xmlResponse);
   }
@@ -149,4 +150,15 @@ class EppClient
     {
         return $this->xmlResponse;
     }
+
+    /**
+     * Get the value of Xml Request
+     *
+     * @return mixed
+     */
+    public function getXmlRequest()
+    {
+        return $this->xmlRequest;
+    }
+
 }

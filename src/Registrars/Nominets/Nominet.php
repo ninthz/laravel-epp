@@ -84,6 +84,15 @@ class Nominet
     return $this->epp_client->getHost();
   }
 
+  public function getXmlResponse()
+  {
+    return $this->epp_client->getXmlResponse();
+  }
+
+  public function getXmlRequest()
+  {
+    return $this->epp_client->getXmlRequest();
+  }
 
   public function getDataXMLPath($filename = '')
   {
