@@ -126,7 +126,7 @@ class EppClient
     $dom->loadXML($response);
 
     if(($dom->GetCode() != 1000) && ($dom->GetCode() != 1500))
-      return array("status" => false, "message" => 'Error: '.$dom->GetMessage());
+      return array("status" => false, "message" => 'Error: '.$dom->GetMessage(), 'code' => $dom->GetCode());
     else
       return array("status" => true, "message" => $dom->GetMessage(), "dom" => $dom);
   }
