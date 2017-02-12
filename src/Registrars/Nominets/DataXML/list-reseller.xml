@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
-        epp-1.0.xsd">
-     <command>
-       <info>
-         <reseller:list
-           xmlns:reseller="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0"
-           xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0
-           nom-reseller-1.0.xsd"
-           fields="all">
-         </reseller:list>
-      </info>
+  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <command>
+        <info>
+          <reseller:list
+              xmlns:reseller="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0"
+              xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0
+              nom-reseller-1.0.xsd"
+              fields="all">
+          </reseller:list>
+        </info>
       <clTRID>EPP-{clTRID}</clTRID>
     </command>
-  </epp>
+ </epp>

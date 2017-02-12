@@ -13,7 +13,6 @@ $nd->setHost($host);
 $nd->setUsername($username);
 $nd->setPassword($password);
 
-$parameters = ['domain' => 'ssldemosite.co.uk'];
+$parameters = ['domain' => ''];
 $response = $nd->info($parameters);
-
 var_dump($response['dom']->getDomainInfo());

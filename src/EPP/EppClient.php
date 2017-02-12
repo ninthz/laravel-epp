@@ -21,6 +21,7 @@ class EppClient
 
   public function __construct($host, $port = 700, $timeout = 30, $protocol = 'ssl')
   {
+    $this->xmlRequest = new \DOMDocument();
     $this->host = $host;
     $this->port = $port;
     $this->timeout = $timeout;
@@ -113,9 +114,9 @@ class EppClient
   public function sendRequest($xml)
   {
     $this->clTRID = $this->generateRandomString(32);
-    $this->xmlRequest = str_replace('{clTRID}', $this->clTRID, $xml);
+    $this->xmlRequest->loadXML(str_replace('{clTRID}', $this->clTRID, $xml));
     if ($this->socket !== FALSE)
-      fwrite($this->socket, pack('N', (strlen($this->xmlRequest)+4)).$this->xmlRequest);
+      fwrite($this->socket, $this->getXmlRequest());
     $this->xmlResponse = $this->read();
     return $this->parseResponse($this->xmlResponse);
   }
@@ -158,7 +159,6 @@ class EppClient
      */
     public function getXmlRequest()
     {
-        return $this->xmlRequest;
+        return $this->xmlRequest->saveXML();
     }
-
 }
