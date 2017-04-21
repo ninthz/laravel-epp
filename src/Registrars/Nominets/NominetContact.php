@@ -46,16 +46,16 @@ class NominetContact extends Nominet
 
     public function makeMapper($parameters = [])
     {
-      return array_merge($parameters, ['{contact_id}' => $contactId]);
+      return array_merge($parameters, ['{contact_id}' => $this->contactId]);
     }
 
-    public function optOut($parameters)
+    public function optOut($optOut)
     {
       if ($this->login()) {
         $xml = file_get_contents($this->getDataXMLPath('optout-contact'));
 
         $mappers = $this->makeMapper([
-          '{opt_out}' => ($parameters['opt_out'] == true ? 'Y' : 'N')
+          '{opt_out}' => ($optOut == true ? 'Y' : 'N')
         ]);
 
         $xml = $this->mapParameters($xml, $mappers);
@@ -63,13 +63,13 @@ class NominetContact extends Nominet
       }
     }
 
-    public function privacy($parameters)
+    public function privacy($privacy)
     {
       if ($this->login()) {
         $xml = file_get_contents($this->getDataXMLPath('privacy-contact'));
 
         $mappers = $this->makeMapper([
-          '{privacy}' => ($parameters['privacy'] == true ? '0' : '1')
+          '{privacy}' => ($privacy == true ? '0' : '1')
         ]);
 
         $xml = $this->mapParameters($xml, $mappers);
@@ -77,7 +77,7 @@ class NominetContact extends Nominet
       }
     }
 
-    public function info($parameters)
+    public function info()
     {
       if ($this->login()) {
         $xml = file_get_contents($this->getDataXMLPath('info-contact'));
@@ -89,13 +89,13 @@ class NominetContact extends Nominet
       }
     }
 
-    public function updateType($parameters)
+    public function updateType($type = '')
     {
       if ($this->login()) {
         $xml = file_get_contents($this->getDataXMLPath('update-contact-type'));
 
         $mappers = $this->makeMapper([
-          '{type}'          => $parameters['type'] ?? ''
+          '{type}' => $type
         ]);
 
         $xml = $this->mapParameters($xml, $mappers);
@@ -103,13 +103,13 @@ class NominetContact extends Nominet
       }
     }
 
-    public function updateTradingName($parameters)
+    public function updateTradingName($tradingName = '')
     {
       if ($this->login()) {
         $xml = file_get_contents($this->getDataXMLPath('update-contact-trading-name'));
 
         $mappers = $this->makeMapper([
-          '{trading_name}'          => $parameters['trading_name'] ?? ''
+          '{trading_name}' => $tradingName
         ]);
 
         $xml = $this->mapParameters($xml, $mappers);
@@ -122,7 +122,7 @@ class NominetContact extends Nominet
       return $this->updateTradingName();
     }
 
-    public function check(String $contactId)
+    public function check()
     {
       if ($this->login()) {
         $xml = file_get_contents($this->getDataXMLPath('check-contact'));

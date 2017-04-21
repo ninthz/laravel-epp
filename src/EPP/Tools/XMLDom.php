@@ -58,7 +58,7 @@ class XMLDom extends \DOMDocument {
 	}
 
 	public function getReason() {
-		return $this->getElementsByTagName("reason")->item(0)->nodeValue;
+		return $this->getElementsByTagName("reason")->item(0)->nodeValue ?? '';
 	}
 
 	public function GetID() {
