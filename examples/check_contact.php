@@ -14,6 +14,6 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $contactId = 'NEO_47455933';
-$response = $nc->checkContact($contactId);
+$response = $nc->check($contactId);
 
 var_dump($response['dom']->getCheckContact());
