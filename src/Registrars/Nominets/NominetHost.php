@@ -22,7 +22,7 @@ class NominetHost extends Nominet
     parent::__destruct();
   }
 
-  public function checkHost(String $hostName)
+  public function check(String $hostName)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('check-host'));

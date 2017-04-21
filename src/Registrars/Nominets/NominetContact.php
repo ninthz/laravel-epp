@@ -102,7 +102,7 @@ class NominetContact extends Nominet
     ]);
   }
 
-  public function checkContact(String $contactId)
+  public function check(String $contactId)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('check-contact'));
@@ -113,5 +113,4 @@ class NominetContact extends Nominet
       return  $this->epp_client->sendRequest($xml);
     }
   }
-
 }

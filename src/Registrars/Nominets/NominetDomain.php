@@ -47,7 +47,7 @@ class NominetDomain extends Nominet
     }
   }
 
-  public function checkDomain(String $domainName)
+  public function check(String $domainName)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('check-domain'));
