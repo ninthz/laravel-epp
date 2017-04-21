@@ -6,11 +6,12 @@ $username = getenv('NOMINET_LIVE_USERNAME');
 $password = getenv('NOMINET_LIVE_PASSWORD');
 $host = 'epp.nominet.org.uk';
 
-$nh = new \LaravelEPP\Registrars\Nominets\NominetHost('ns1.nominet.org.uk');
+$nh = new \LaravelEPP\Registrars\Nominets\NominetHost('example.com');
 $nh->setHost($host);
 $nh->setUsername($username);
 $nh->setPassword($password);
 
-$response = $nh->info()->toArray();
+$ip = "127.0.0.1";
+$response = $nh->create($ip)->toArray();
 
-print_r($response['dom']->getHostInfo());
+var_dump($response);

@@ -4,6 +4,7 @@ namespace LaravelEPP\Registrars\Nominets;
 
 use LaravelEPP\EPP\EppClient;
 use LaravelEPP\Registrars\Nominets\Nominet;
+use phpDocumentor\Reflection\Types\Mixed;
 
 /**
  * Nominet Reseller class service
@@ -11,43 +12,68 @@ use LaravelEPP\Registrars\Nominets\Nominet;
 class NominetHost extends Nominet
 {
 
-  public function __construct()
-  {
-    parent::__construct();
-  }
+    private $hostname;
 
-  public function __destruct()
-  {
-    $this->logout();
-    parent::__destruct();
-  }
+    public function __construct($hostname = '')
+    {
+        parent::__construct();
 
-  public function check(String $hostName)
-  {
-    if ($this->login()) {
-      $xml = file_get_contents($this->getDataXMLPath('check-host'));
-      $mappers = [
-        '{host_name}' => $hostName,
-      ];
-      $xml = $this->mapParameters($xml, $mappers);
-      return  $this->epp_client->sendRequest($xml);
+        $this->hostname = $hostname;
     }
-  }
+
+    public function __destruct()
+    {
+        $this->logout();
+        parent::__destruct();
+    }
+
+    /**
+     * Check host
+     * @return Mixed
+     */
+    public function check()
+    {
+        if ($this->login()) {
+            $xml = file_get_contents($this->getDataXMLPath('check-host'));
+            $mappers = [
+                '{host_name}' => $this->hostname,
+            ];
+            $xml = $this->mapParameters($xml, $mappers);
+            return $this->epp_client->sendRequest($xml);
+        }
+    }
 
     /**
      * Get host name info
-     * @param String $hostName
-     * @return array
+     * @return Mixed
      */
-  public function info(String $hostName)
-  {
-      if ($this->login()) {
-          $xml = file_get_contents($this->getDataXMLPath('host-info'));
-          $mappers = [
-              '{host_name}' => $hostName,
-          ];
-          $xml = $this->mapParameters($xml, $mappers);
-          return  $this->epp_client->sendRequest($xml);
-      }
-  }
+    public function info()
+    {
+        if ($this->login()) {
+            $xml = file_get_contents($this->getDataXMLPath('host-info'));
+            $mappers = [
+                '{host_name}' => $this->hostname,
+            ];
+            $xml = $this->mapParameters($xml, $mappers);
+            return $this->epp_client->sendRequest($xml);
+        }
+    }
+
+    /**
+     * Create host
+     * @param String $ip
+     * @return Mixed
+     */
+    public function create(String $ip)
+    {
+        if ($this->login()) {
+            $xml = file_get_contents($this->getDataXMLPath('host-create'));
+            $mappers = [
+                '{host_name}' => $this->hostname,
+                '{host_ip}' => $ip,
+            ];
+            $xml = $this->mapParameters($xml, $mappers);
+            return $this->epp_client->sendRequest($xml);
+        }
+    }
 }

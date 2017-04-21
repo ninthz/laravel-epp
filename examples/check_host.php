@@ -8,12 +8,11 @@ $username = getenv('NOMINET_LIVE_USERNAME');
 $password = getenv('NOMINET_LIVE_PASSWORD');
 $host = 'epp.nominet.org.uk';
 
-$nc = new NominetHost();
+$nc = new NominetHost('ns1.nominet.org.uk');
 $nc->setHost($host);
 $nc->setUsername($username);
 $nc->setPassword($password);
 
-$hostName = 'ns1.nominet.org.uk';
-$response = $nc->check($hostName)->toArray();
+$response = $nc->check()->toArray();
 
 var_dump($response['dom']->getCheckHost());
