@@ -163,9 +163,7 @@ class Nominet
       }
       else
       {
-        $markers = array_keys($mappers);
-        $values = array_values($mappers);
-        $xml = str_replace($markers, $values, $xml);
+        $xml = str_replace($mapperKey, $mapperValue, $xml);
       }
     }
 
