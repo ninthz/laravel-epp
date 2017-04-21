@@ -82,4 +82,29 @@ class NominetDomain extends Nominet
       return  $this->epp_client->sendRequest($xml);
     }
   }
+
+  /**
+  * @param $curExpDate String   format yyyy-mm-dd
+  * @param $unit String   'm' or 'y'
+  */
+  public function renew(String $domainName, String $curExpDate, String $unit, int $period)
+  {
+    if ($unit !== 'y' && $unit !== 'm') throw new \Exception("Invalid argument the unit must be 'm' or 'y'");
+
+    $dates = explode('-', $curExpDate);
+    if (count($dates) != 3 || strlen($dates[0]) != 4 || $dates[1] < 1 || $dates[1] > 12 || $dates[2] < 1 || $dates[2] > 31)
+      throw new \Exception("Invalid argument format the curExpDate must be yyyy-mm-dd");
+
+    if ($this->login()) {
+      $xml = file_get_contents($this->getDataXMLPath('renew-domain'));
+      $mappers = [
+          '{domain_name}' => $domainName,
+          '{domain_curExpDate}' => $curExpDate,
+          '{domain_unit}' => $unit,
+          '{domain_period}' => $period,
+      ];
+      $xml = $this->mapParameters($xml, $mappers);
+      return  $this->epp_client->sendRequest($xml);
+    }
+  }
 }
