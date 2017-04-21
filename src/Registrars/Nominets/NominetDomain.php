@@ -107,4 +107,16 @@ class NominetDomain extends Nominet
       return  $this->epp_client->sendRequest($xml);
     }
   }
+
+  public function unrenew(Array $domainNames)
+  {
+    if ($this->login()) {
+      $xml = file_get_contents($this->getDataXMLPath('unrenew-domain'));
+      $mappers = [
+        '{domain_name}' => $domainNames,
+      ];
+      $xml = $this->mapParameters($xml, $mappers);
+      return  $this->epp_client->sendRequest($xml);
+    }
+  }
 }
