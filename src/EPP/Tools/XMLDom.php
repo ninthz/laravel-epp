@@ -3,10 +3,11 @@
 namespace LaravelEPP\Epp\Tools;
 
 use LaravelEPP\Registrars\Nominets\Mappers\ContactMapperTrait;
+use LaravelEPP\Registrars\Nominets\Mappers\HostMapperTrait;
 
 class XMLDom extends \DOMDocument {
 
-	use ContactMapperTrait;
+	use ContactMapperTrait, HostMapperTrait;
 
 	public $ns_domain = 'urn:ietf:params:xml:ns:domain-1.0';
 	public $ns_domain_ext = 'http://www.nominet.org.uk/epp/xml/domain-nom-ext-1.1';
@@ -15,7 +16,6 @@ class XMLDom extends \DOMDocument {
 	public $ns_contact = 'urn:ietf:params:xml:ns:contact-1.0';
 	public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0';
 	//public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/nom-contact-2.0';
-	public $ns_host = 'urn:ietf:params:xml:ns:host-1.0';
 
 	public function fromMixed($mixed, DOMElement $domElement = null) {
 		$domElement = is_null($domElement) ? $this : $domElement;
@@ -75,7 +75,7 @@ class XMLDom extends \DOMDocument {
 	}
 
 	public function getDataAttribute($ns, $name, $attribute, $dom_element = null) {
-		$dom_element = is_null($dom_element) ? $this : $dom_element;
+		$dom_element = $this->getDomElement($dom_element);
 
 		if($dom_element->getElementsByTagNameNS($ns, $name)->length > 0) {
 			if($dom_element->getElementsByTagNameNS($ns,$name)->item(0)->hasAttribute($attribute))
@@ -86,6 +86,30 @@ class XMLDom extends \DOMDocument {
 		else
 			return '';
 	}
+
+	public function getDomElement($domElement = null)
+    {
+        return is_null($domElement) ? $this : $domElement;
+    }
+
+    /**
+     * Sometimes Nominet return the element in array format, we need to get the length and loop through them
+     * @param string $ns
+     * @param string $property
+     * @param null $domElement
+     * @return array
+     */
+    public function getArrayElementsResponse($ns, $property, $domElement = null)
+    {
+        $domElement = $this->getDomElement($domElement);
+        $length = $domElement->getElementsByTagNameNS($ns, $property)->length;
+
+        $result = [];
+        for ($i = 0; $i < $length; $i++) {
+            $result[] = $this->getDataItem($ns, $property, null, $i);
+        }
+        return $result;
+    }
 
 	public function getDomainInfo() {
 		$domain_info 								  = [];
@@ -160,13 +184,5 @@ class XMLDom extends \DOMDocument {
 		$domain_info['reason'] = $this->getDataItem($this->ns_domain, 'reason');
 
 		return $domain_info;
-	}
-
-	public function getCheckHost() {
-		$host_info = [];
-		$host_info['name'] = $this->getDataItem($this->ns_host, 'name');
-		$host_info['reason'] = $this->getDataItem($this->ns_host, 'reason');
-
-		return $host_info;
 	}
 }

@@ -12,6 +12,6 @@ $nh->setUsername($username);
 $nh->setPassword($password);
 
 $hostName = 'ns1.nominet.org.uk';
-$response = $nh->info($hostName);
+$response = $nh->info($hostName)->toArray();
 
-var_dump($response);
+print_r($response['dom']->getHostInfo());
