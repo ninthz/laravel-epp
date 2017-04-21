@@ -33,4 +33,21 @@ class NominetHost extends Nominet
       return  $this->epp_client->sendRequest($xml);
     }
   }
+
+    /**
+     * Get host name info
+     * @param String $hostName
+     * @return array
+     */
+  public function info(String $hostName)
+  {
+      if ($this->login()) {
+          $xml = file_get_contents($this->getDataXMLPath('host-info'));
+          $mappers = [
+              '{host_name}' => $hostName,
+          ];
+          $xml = $this->mapParameters($xml, $mappers);
+          return  $this->epp_client->sendRequest($xml);
+      }
+  }
 }
