@@ -2,13 +2,13 @@
 
 require __DIR__.'/autoload.php';
 
-use LaravelEPP\Registrars\Nominets\NominetDelete;
+use LaravelEPP\Registrars\Nominets\NominetDomain;
 
 $username = getenv('NOMINET_LIVE_USERNAME');
 $password = getenv('NOMINET_LIVE_PASSWORD');
 $host = 'epp.nominet.org.uk';
 
-$nr = new NominetDelete();
+$nr = new NominetDomain();
 $nr->setHost($host);
 $nr->setUsername($username);
 $nr->setPassword($password);

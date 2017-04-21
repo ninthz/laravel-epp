@@ -70,4 +70,16 @@ class NominetDomain extends Nominet
       return  $this->epp_client->sendRequest($xml);
     }
   }
+
+  public function delete(String $domainName)
+  {
+    if ($this->login()) {
+      $xml = file_get_contents($this->getDataXMLPath('delete-domain'));
+      $mappers = [
+          '{domain_name}' => $domainName,
+      ];
+      $xml = $this->mapParameters($xml, $mappers);
+      return  $this->epp_client->sendRequest($xml);
+    }
+  }
 }
