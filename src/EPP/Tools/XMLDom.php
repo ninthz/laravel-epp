@@ -10,6 +10,7 @@ class XMLDom extends \DOMDocument {
 	public $ns_contact = 'urn:ietf:params:xml:ns:contact-1.0';
 	public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0';
 	//public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/nom-contact-2.0';
+	public $ns_host = 'urn:ietf:params:xml:ns:host-1.0';
 
 	public function FromMixed($mixed, DOMElement $domElement = null) {
 		$domElement = is_null($domElement) ? $this : $domElement;
@@ -189,5 +190,13 @@ class XMLDom extends \DOMDocument {
 		$domain_info['reason'] = $this->GetDataItem($this->ns_domain, 'reason');
 
 		return $domain_info;
+	}
+
+	public function getCheckHost() {
+		$host_info = [];
+		$host_info['name'] = $this->GetDataItem($this->ns_host, 'name');
+		$host_info['reason'] = $this->GetDataItem($this->ns_host, 'reason');
+
+		return $host_info;
 	}
 }
