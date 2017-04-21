@@ -13,7 +13,7 @@ $nc->setHost($host);
 $nc->setUsername($username);
 $nc->setPassword($password);
 
-$domainName = 'netearthtwo.com';
-$response = $nc->check($domainName);
+$domainName = ["sound-offs.com", "sound-offs2.com"];
+$response = $nc->check($domainName)->toArray();
 
 var_dump($response['dom']->getCheckDomain());

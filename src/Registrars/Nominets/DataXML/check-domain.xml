@@ -3,7 +3,7 @@
   <command>
     <check>
       <domain:check xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>{domain_name}</domain:name>
+        {[<domain:name>{domain_name}</domain:name>]}
       </domain:check>
     </check>
     <clTRID>EPP-{clTRID}</clTRID>

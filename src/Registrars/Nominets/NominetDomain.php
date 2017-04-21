@@ -47,12 +47,12 @@ class NominetDomain extends Nominet
     }
   }
 
-  public function check(String $domainName)
+  public function check(Array $domainNames)
   {
     if ($this->login()) {
       $xml = file_get_contents($this->getDataXMLPath('check-domain'));
       $mappers = [
-        '{domain_name}' => $domainName,
+        '{domain_name}' => $domainNames,
       ];
       $xml = $this->mapParameters($xml, $mappers);
       return  $this->epp_client->sendRequest($xml);
