@@ -11,9 +11,6 @@ class XMLDom extends \DOMDocument {
 	use DomainMapperTrait, ContactMapperTrait, HostMapperTrait;
 
 	public $ns_account = 'http://www.nominet.org.uk/epp/xml/nom-account-2.0';
-	public $ns_contact = 'urn:ietf:params:xml:ns:contact-1.0';
-	public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0';
-	//public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/nom-contact-2.0';
 
 	public function fromMixed($mixed, DOMElement $domElement = null) {
 		$domElement = is_null($domElement) ? $this : $domElement;
