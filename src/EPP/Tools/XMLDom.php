@@ -199,12 +199,4 @@ class XMLDom extends \DOMDocument {
 
 		return $host_info;
 	}
-
-	public function getCheckHost() {
-		$host_info = [];
-		$host_info['name'] = $this->GetDataItem($this->ns_host, 'name');
-		$host_info['reason'] = $this->GetDataItem($this->ns_host, 'reason');
-
-		return $host_info;
-	}
 }

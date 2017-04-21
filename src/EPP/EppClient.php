@@ -118,6 +118,7 @@ class EppClient
     if ($this->socket !== FALSE)
       fwrite($this->socket, $this->getXmlRequest());
     $this->xmlResponse = $this->read();
+    print_r($this->xmlResponse);
     return $this->parseResponse($this->xmlResponse);
   }
 
