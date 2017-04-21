@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+    epp-1.0.xsd">
+    <command>
+        <create>
+            <contact:create
+                    xmlns:contact="urn:ietf:params:xml:ns:contact-1.0"
+                    xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0
+                contact-1.0.xsd">
+                <contact:id>{contact_id}</contact:id>
+                <contact:postalInfo type="loc">
+                    <contact:name>{contact_name}</contact:name>
+                    <contact:org>{contact_org}</contact:org>
+                    <contact:addr>
+                        {[<contact:street>{contact_street}</contact:street>]}
+                        <contact:city>{contact_city}</contact:city>
+                        <contact:sp>{contact_sp}</contact:sp>
+                        <contact:pc>{contact_pc}</contact:pc>
+                        <contact:cc>{contact_cc}</contact:cc>
+                    </contact:addr>
+                </contact:postalInfo>
+                <contact:voice>{contact_voice}</contact:voice>
+                <contact:email>{contact_email}</contact:email>
+                <contact:authInfo>
+                    <contact:pw>{contact_pw}</contact:pw>
+                </contact:authInfo>
+            </contact:create>
+        </create>
+        <extension>
+            <contact-ext:create
+                    xmlns:contact-ext="http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0"
+                    xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0 contact-nom-ext-1.0.xsd">
+                <contact-ext:trad-name>{contact_trade_name}</contact-ext:trad-name>
+                <contact-ext:type>{contact_type}</contact-ext:type>
+                <contact-ext:co-no>{contact_co_no}</contact-ext:co-no>
+                <contact-ext:opt-out>{contact_opt_out}</contact-ext:opt-out>
+            </contact-ext:create>
+        </extension>
+        <clTRID>ABC-{clTRID}</clTRID>
+    </command>
+</epp>
