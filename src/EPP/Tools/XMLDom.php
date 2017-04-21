@@ -44,13 +44,17 @@ class XMLDom extends \DOMDocument {
 			$domElement->appendChild($this->createTextNode($mixed));
 	} // FromMixed()
 
-	public function GetMessage() {
+	public function getMessage() {
 		return $this->getElementsByTagName("msg")->item(0)->nodeValue;
 	} // GetMessage()
 
-	public function GetCode() {
+	public function getCode() {
 		return $this->getElementsByTagName("result")->item(0)->getAttribute('code');
 	} // GetCode()
+
+	public function getReason() {
+		return $this->getElementsByTagName("reason")->item(0)->nodeValue;
+	}
 
 	public function GetID() {
 		return $this->getElementsByTagName("clTRID")->item(0)->nodeValue;

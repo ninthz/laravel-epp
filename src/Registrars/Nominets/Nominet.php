@@ -104,6 +104,7 @@ class Nominet
   public function login($reseller_access = false)
   {
     $xml = file_get_contents($this->getDataXMLPath('login'));
+
     if ($reseller_access)
       $xml = file_get_contents($this->getDataXMLPath('login-reseller-access'));
 
@@ -111,18 +112,21 @@ class Nominet
       '{clID}'  => $this->getUsername(),
       '{pw}'    => $this->getPassword()
     ];
+
     $xml = $this->mapParameters($xml, $mappers);
-    $response =  $this->epp_client->sendRequest($xml);
-    if ($response['status'])
+    $response =  $this->epp_client->sendRequest($xml)->toJson();
+
+    if ($response->status)
       $this->logged_id = true;
-    return $response["status"];
+
+    return $response->status;
   }
 
   public function logout()
   {
     $xml = file_get_contents($this->getDataXMLPath('logout'));
-    $response = $this->epp_client->sendRequest($xml);
-    if ($response['status'])
+    $response = $this->epp_client->sendRequest($xml)->toJson();
+    if ($response->status)
       $this->logged_in = false;
     return $response;
   }

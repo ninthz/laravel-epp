@@ -14,8 +14,9 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $parameters = [
-  'contact_id' => '2E5B7DE5BB406-05',
+  'contact_id' => '11DA596DDD880-01',
 ];
-$response = $nc->info($parameters);
 
-var_dump($response['dom']->getContactInfo());
+$response = $nc->info($parameters)->toJson();
+
+print_r($response);
