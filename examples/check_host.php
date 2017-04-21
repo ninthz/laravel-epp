@@ -14,6 +14,6 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $hostName = 'ns1.nominet.org.uk';
-$response = $nc->check($hostName);
+$response = $nc->check($hostName)->toArray();
 
 var_dump($response['dom']->getCheckHost());
