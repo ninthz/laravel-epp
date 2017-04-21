@@ -182,4 +182,12 @@ class XMLDom extends \DOMDocument {
 		$domain_info['expiry_date'] = $this->GetDataItem($this->ns_domain,'exDate');
 		return $domain_info;
 	}
+
+	public function getCheckDomain() {
+		$domain_info = [];
+		$domain_info['name'] = $this->GetDataItem($this->ns_domain, 'name');
+		$domain_info['reason'] = $this->GetDataItem($this->ns_domain, 'reason');
+
+		return $domain_info;
+	}
 }
