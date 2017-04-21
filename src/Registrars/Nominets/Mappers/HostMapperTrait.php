@@ -32,7 +32,7 @@ trait HostMapperTrait
 
         $host_info['name'] = $this->getDataItem($this->ns_host, 'name');
         $host_info['roid'] = $this->getDataItem($this->ns_host, 'roid');
-        $host_info['status'] = $this->getArrayElementsResponse($this->ns_host, 'clID', null, true, 's');
+        $host_info['status'] = $this->getArrayElementsResponse($this->ns_host, 'status', null, true, 's');
         $host_info['clID'] = $this->getDataItem($this->ns_host, 'clID');
         $host_info['crID'] = $this->getDataItem($this->ns_host, 'crID');
         $host_info['crDate'] = $this->getDataItem($this->ns_host, 'crDate');
