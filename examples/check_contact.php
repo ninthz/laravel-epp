@@ -16,4 +16,4 @@ $nc->setPassword($password);
 
 $response = $nc->check()->toArray();
 
-var_dump($response['dom']->checkMapper());
+var_dump($response['dom']->contactCheckMapper());

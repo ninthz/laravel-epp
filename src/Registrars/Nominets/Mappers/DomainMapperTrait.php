@@ -9,7 +9,7 @@ trait DomainMapperTrait
 	public $ns_domain_ext = 'http://www.nominet.org.uk/epp/xml/domain-nom-ext-1.1';
 	//public $ns_domain_ext = 'http://www.nominet.org.uk/epp/xml/nom-domain-2.0';
 
-  public function getDomainInfo() {
+  public function domainInfoMapper() {
 		$domain_info = [];
 		$domain_info['roid'] = $this->getDataItem($this->ns_domain, 'roid');
 		$domain_info['domain'] = $this->getDataItem($this->ns_domain,'name');
@@ -76,7 +76,7 @@ trait DomainMapperTrait
 		return $domain_info;
 	}
 
-	public function getCheckDomain() {
+	public function domainCheckMapper() {
 		$domain_info = [];
 		$domain_info['name'] = $this->getDataItem($this->ns_domain, 'name');
 		$domain_info['reason'] = $this->getDataItem($this->ns_domain, 'reason');

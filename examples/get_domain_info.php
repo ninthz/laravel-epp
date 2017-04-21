@@ -14,5 +14,6 @@ $nd->setUsername($username);
 $nd->setPassword($password);
 
 $parameters = ['domain' => ''];
-$response = $nd->info($parameters);
-var_dump($response['dom']->getDomainInfo());
+$response = $nd->info($parameters)->toArray();
+
+var_dump($response['dom']->domainInfoMapper());

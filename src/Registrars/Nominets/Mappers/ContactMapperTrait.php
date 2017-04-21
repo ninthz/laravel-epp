@@ -8,7 +8,7 @@ trait ContactMapperTrait
 	public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0';
 	//public $ns_contact_ext = 'http://www.nominet.org.uk/epp/xml/nom-contact-2.0';
 
-	public function InfoMapper() {
+	public function contactInfoMapper() {
 		$contact_info = [];
 		$contact_info['id'] = $this->GetDataItem($this->ns_contact, 'id');
 		$contact_info['roid'] = $this->GetDataItem($this->ns_contact, 'roid');
@@ -39,7 +39,7 @@ trait ContactMapperTrait
 		return $contact_info;
 	}
 
-	public function checkMapper() {
+	public function contactCheckMapper() {
 		$contact_info = [];
 		$contact_info['id'] = $this->GetDataItem($this->ns_contact, 'id');
 		$contact_info['reason'] = $this->GetDataItem($this->ns_contact, 'reason');
