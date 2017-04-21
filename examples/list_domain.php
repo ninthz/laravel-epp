@@ -16,6 +16,6 @@ $nr->setPassword($password);
 $year = 2012;
 $month = 11;
 
-$response = $nr->list($year, $month);
+$response = $nr->list($year, $month)->toArray();
 
 var_dump($response);
