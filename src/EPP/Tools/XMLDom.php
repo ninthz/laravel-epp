@@ -94,14 +94,19 @@ class XMLDom extends \DOMDocument {
      * @param null $domElement
      * @return array
      */
-    public function getArrayElementsResponse($ns, $property, $domElement = null)
+    public function getArrayElementsResponse($ns, $property, $domElement = null, $isGetAttribute = false, $attribute = '')
     {
         $domElement = $this->getDomElement($domElement);
         $length = $domElement->getElementsByTagNameNS($ns, $property)->length;
 
         $result = [];
         for ($i = 0; $i < $length; $i++) {
-            $result[] = $this->getDataItem($ns, $property, null, $i);
+            if($isGetAttribute) {
+                $result[] = $domElement->getElementsByTagNameNS($ns, $property)->item($i)->getAttribute($attribute);
+            } else {
+                $result[] = $this->getDataItem($ns, $property, null, $i);
+            }
+
         }
         return $result;
     }
