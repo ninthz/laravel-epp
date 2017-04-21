@@ -57,16 +57,16 @@ class NominetReseller extends Nominet
       return array_merge($parameters, ['{reference}' => $this->reference]);
     }
 
-    function create($tradingName = '', $url = '', $email = '', $telephone = '')
+    function create(Array $parameters)
     {
         if ($this->login(true)) {
           $xml = file_get_contents($this->getDataXMLPath('create-reseller'));
 
           $mappers = $this->makeMapper([
-              '{trading_name}' => $tradingName,
-              '{url}' => $url,
-              '{email}' => $email,
-              '{telephone}' => $telephone,
+            '{trading_name}' => $parameters['trading_name'] ?? '',
+            '{url}' =>  $parameters['url'] ?? '',
+            '{email}' => $parameters['email'] ?? '',
+            '{telephone}' => $parameters['telephone'] ?? '',
           ]);
 
           $xml = $this->mapParameters($xml, $mappers);
@@ -106,16 +106,16 @@ class NominetReseller extends Nominet
         }
     }
 
-    function update($tradingName = '', $url = '', $email = '', $telephone = '')
+    function update(Array $parameters)
     {
         if ($this->login(true)) {
           $xml = file_get_contents($this->getDataXMLPath('update-reseller'));
 
           $mappers = $this->makeMapper([
-            '{trading_name}' => $tradingName,
-            '{url}' =>  $url = '',
-            '{email}' => $email,
-            '{telephone}' => $telephone,
+            '{trading_name}' => $parameters['trading_name'] ?? '',
+            '{url}' =>  $parameters['url'] ?? '',
+            '{email}' => $parameters['email'] ?? '',
+            '{telephone}' => $parameters['telephone'] ?? '',
           ]);
 
           $xml = $this->mapParameters($xml, $mappers);
