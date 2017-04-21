@@ -131,10 +131,44 @@ class Nominet
     return $response;
   }
 
-  public function mapParameters($xml_template, $mappers)
+  private function replaceArrayXmlParams(String $xml, String $replaceKey, Array $values): String
   {
-    $markers  = array_keys($mappers);
-    $values   = array_values($mappers);
-    return str_replace($markers, $values, $xml_template);
+    $startAt = strpos($xml, "{[");
+    $endAt = strpos($xml, "]}");
+
+    $templateText = substr($xml, $startAt, $endAt - $startAt);
+    $templateText = str_replace("{[", "", $templateText);
+    $templateText = str_replace("]}", "", $templateText);
+
+    if (strpos($templateText, $replaceKey))
+    {
+      $text = "";
+      foreach ($values as $key => $value) {
+        $text .= str_replace($replaceKey, $value, $templateText);
+        $text .= "\n";
+      }
+
+      $xml = substr($xml, 0, $startAt) . $text . substr($xml, $endAt + 2);
+    }
+
+    return $xml;
+  }
+
+  public function mapParameters(String $xml, $mappers): String
+  {
+    foreach ($mappers as $mapperKey => $mapperValue) {
+      if (is_array($mapperValue))
+      {
+        $xml = $this->replaceArrayXmlParams($xml, $mapperKey, $mapperValue);
+      }
+      else
+      {
+        $markers = array_keys($mappers);
+        $values = array_values($mappers);
+        $xml = str_replace($markers, $values, $xml);
+      }
+    }
+
+    return $xml;
   }
 }
