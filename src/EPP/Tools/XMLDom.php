@@ -1,7 +1,12 @@
 <?php
+
 namespace LaravelEPP\Epp\Tools;
 
+use LaravelEPP\Registrars\Nominets\Mappers\ContactMapperTrait;
+
 class XMLDom extends \DOMDocument {
+
+	use ContactMapperTrait;
 
 	public $ns_domain = 'urn:ietf:params:xml:ns:domain-1.0';
 	public $ns_domain_ext = 'http://www.nominet.org.uk/epp/xml/domain-nom-ext-1.1';
@@ -80,45 +85,6 @@ class XMLDom extends \DOMDocument {
 		}
 		else
 			return '';
-	}
-
-	public function getContactInfo() {
-		$contact_info               = [];
-		$contact_info['id']					= $this->getDataItem($this->ns_contact, 'id');
-		$contact_info['roid']				= $this->getDataItem($this->ns_contact, 'roid');
-
-		foreach($this->getElementsByTagNameNS($this->ns_contact, 'postalInfo') as $postalInfo) {
-			$contact_info['name'] 		= $this->getDataItem($this->ns_contact, 'name', $postalInfo);
-			$contact_info['org'] 			= $this->getDataItem($this->ns_contact, 'org', $postalInfo);
-
-			foreach($this->getElementsByTagNameNS($this->ns_contact, 'addr') as $address) {
-				$contact_info['street'] 	= $this->getDataItem($this->ns_contact, 'street', $address);
-				$contact_info['street2'] 	= $this->getDataItem($this->ns_contact, 'street', $address, 1);
-				$contact_info['street3'] 	= $this->getDataItem($this->ns_contact, 'street', $address, 2);
-				$contact_info['city'] 		= $this->getDataItem($this->ns_contact, 'city', $address);
-				$contact_info['sp'] 			= $this->getDataItem($this->ns_contact, 'sp', $address);
-				$contact_info['pc'] 			= $this->getDataItem($this->ns_contact, 'pc', $address);
-				$contact_info['cc']	 			= $this->getDataItem($this->ns_contact, 'cc', $address);
-			}
-		}
-
-		$contact_info['voice'] 			= $this->getDataItem($this->ns_contact, 'voice');
-		$contact_info['email'] 			= $this->getDataItem($this->ns_contact, 'email');
-		$contact_info['disclose'] 	= $this->getDataAttribute($this->ns_contact, 'disclose', 'flag');
-
-		// Nominet extension values
-		$contact_info['type'] 			= $this->getDataItem($this->ns_contact_ext,'type');
-		$contact_info['opt_out']		= $this->getDataItem($this->ns_contact_ext, 'opt-out');
-
-		return $contact_info;
-	}
-
-	public function getCheckContact() {
-		$contact_info = [];
-		$contact_info['id'] = $this->getDataItem($this->ns_contact, 'id');
-		$contact_info['reason'] = $this->getDataItem($this->ns_contact, 'reason');
-
-		return $contact_info;
 	}
 
 	public function getDomainInfo() {
