@@ -102,4 +102,16 @@ class NominetContact extends Nominet
     ]);
   }
 
+  public function checkContact(String $contactId)
+  {
+    if ($this->login()) {
+      $xml = file_get_contents($this->getDataXMLPath('check-contact'));
+      $mappers = [
+        '{contact_id}' => $contactId,
+      ];
+      $xml = $this->mapParameters($xml, $mappers);
+      return  $this->epp_client->sendRequest($xml);
+    }
+  }
+
 }

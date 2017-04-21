@@ -108,6 +108,14 @@ class XMLDom extends \DOMDocument {
 		return $contact_info;
 	}
 
+	public function getCheckContact() {
+		$contact_info = [];
+		$contact_info['id'] = $this->GetDataItem($this->ns_contact, 'id');
+		$contact_info['reason'] = $this->GetDataItem($this->ns_contact, 'reason');
+
+		return $contact_info;
+	}
+
 	public function getDomainInfo() {
 		$domain_info 								  = [];
 		$domain_info['roid'] 					= $this->GetDataItem($this->ns_domain, 'roid');
