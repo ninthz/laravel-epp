@@ -4,18 +4,18 @@ require __DIR__.'/autoload.php';
 
 use LaravelEPP\Registrars\Nominets\NominetDomain;
 
-$username = getenv('NOMINET_LIVE_USERNAME');
-$password = getenv('NOMINET_LIVE_PASSWORD');
-$host = 'epp.nominet.org.uk';
+$username = getenv('NOMINET_TEST_USERNAME');
+$password = getenv('NOMINET_TEST_PASSWORD');
+$host = 'testbed-epp.nominet.org.uk';
 
 $nr = new NominetDomain();
 $nr->setHost($host);
 $nr->setUsername($username);
 $nr->setPassword($password);
 
-$year = 2012;
+$year = 2016;
 $month = 11;
 
-$response = $nr->list($year, $month)->toArray();
+$response = $nr->list($year, $month);
 
 var_dump($response);
