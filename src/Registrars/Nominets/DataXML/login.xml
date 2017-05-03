@@ -17,6 +17,8 @@
   				<svcExtension>
   				      <extURI>http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0</extURI>
   							<extURI>http://www.nominet.org.uk/epp/xml/domain-nom-ext-1.1</extURI>
+                <extURI>http://www.nominet.org.uk/epp/xml/std-list-1.0</extURI>
+                <extURI>http://www.nominet.org.uk/epp/xml/std-notifications-1.2</extURI>
   				</svcExtension>
         </svcs>
       </login>
