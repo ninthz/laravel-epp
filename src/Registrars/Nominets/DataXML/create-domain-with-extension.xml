@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+   epp-1.0.xsd">
+    <command>
+        <create>
+            <domain:create
+                xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+                xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+                domain-1.0.xsd">
+                <domain:name>{domain_name}</domain:name>
+                <domain:period unit="{domain_unit}">{domain_period}</domain:period>
+                <domain:ns>
+                {[<domain:hostObj>{domain_hostObj}</domain:hostObj>]}
+                </domain:ns>
+                <domain:registrant>{domain_registrant}</domain:registrant>
+                <domain:authInfo>
+                <domain:pw>{domain_pw}</domain:pw>
+                </domain:authInfo>
+            </domain:create>
+        </create>
+        <extension>
+            <domain-ext:create
+                    xmlns:domain-ext="http://www.nominet.org.uk/epp/xml/domain-nom-ext-1.2"
+                    xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/domain-nom-ext-1.2 domain-nom-ext-1.2.xsd">
+                <domain-ext:auto-bill>{domain_auto_bill}</domain-ext:auto-bill>
+                <domain-ext:next-bill>{domain_next_bill}</domain-ext:next-bill>
+                <domain-ext:notes>{domain_notes}</domain-ext:notes>
+                <domain-ext:reseller>{domain_reseller}</domain-ext:reseller>
+            </domain-ext:create>
+        </extension>
+        <clTRID>EPP-{clTRID}</clTRID>
+    </command>
+</epp>
