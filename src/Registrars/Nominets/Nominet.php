@@ -22,6 +22,13 @@ class Nominet
 
   protected $logged_in = false;
 
+  const LOGIN_DEFAULT = 'login';
+  const LOGIN_RESELLER = 'login-reseller-access';
+  const LOGIN_LIST = [
+    self::LOGIN_DEFAULT,
+    self::RESELLER,
+  ];
+
   function __construct()
   {
     if(function_exists('config'))
@@ -101,12 +108,12 @@ class Nominet
     return $this->data_xml_path.$filename;
   }
 
-  public function login($reseller_access = false)
+  public function login($loginType = self::LOGIN_DEFAULT)
   {
-    $xml = file_get_contents($this->getDataXMLPath('login'));
+    if (!in_array($loginType, self::LOGIN_LIST))
+        throw new \Exception("Invalid argument loginType.");
 
-    if ($reseller_access)
-      $xml = file_get_contents($this->getDataXMLPath('login-reseller-access'));
+    $xml = file_get_contents($this->getDataXMLPath($loginType));
 
     $mappers = [
       '{clID}'  => $this->getUsername(),
