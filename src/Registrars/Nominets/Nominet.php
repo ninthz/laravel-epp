@@ -26,7 +26,7 @@ class Nominet
   const LOGIN_RESELLER = 'login-reseller-access';
   const LOGIN_LIST = [
     self::LOGIN_DEFAULT,
-    self::RESELLER,
+    self::LOGIN_RESELLER,
   ];
 
   function __construct()
