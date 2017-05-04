@@ -21,13 +21,11 @@ class Nominet
     protected $data_xml_path;
 
     protected $logged_in = false;
+    protected $extensions = [];
 
-    const LOGIN_DEFAULT = 'login';
-    const LOGIN_RESELLER = 'login-reseller-access';
-    const LOGIN_LIST = [
-        self::LOGIN_DEFAULT,
-        self::LOGIN_RESELLER,
-    ];
+    const GENERAL_ACCESS = 'ga';
+    const RESELLER_ACCESS = 'ra';
+    const TAGLIST_ACCESS = 'ta';
 
     function __construct()
     {
@@ -108,19 +106,38 @@ class Nominet
         return $this->data_xml_path.$filename;
     }
 
-    public function login($loginType = self::LOGIN_DEFAULT)
+    public function login($loginType = self::GENERAL_ACCESS)
     {
-        if (!in_array($loginType, self::LOGIN_LIST))
-            throw new \Exception("Invalid argument loginType.");
-
-        $xml = file_get_contents($this->getDataXMLPath($loginType));
-
+        $templateName = 'login';
         $mappers = [
-            '{clID}'  => $this->getUsername(),
-            '{pw}'    => $this->getPassword()
+          '{clID}'  => $this->getUsername(),
+          '{pw}'    => $this->getPassword(),
+          '{schema}' => [],
+          '{extensions}' => $this->extensions
         ];
 
+        # Setting Schema
+        if ($loginType === self::GENERAL_ACCESS) {
+            $mappers['{schema}'] = [
+                NominetEPPSchema::DOMAIN,
+                NominetEPPSchema::CONTACT
+            ];
+        } elseif ($loginType === self::RESELLER_ACCESS) {
+            $mappers['{schema}'] = [
+                NominetEPPSchema::NOM_RESELLER
+            ];
+        } elseif ($loginType === self::TAGLIST_ACCESS) {
+            $mappers['{schema}'] = [
+                NominetEPPSchema::NOM_TAGLIST
+            ];
+        } else {
+            throw new \Exception("Invalid argument loginType.");
+        }
+
+        $xml = file_get_contents($this->getDataXMLPath($templateName));
+
         $xml = $this->mapParameters($xml, $mappers);
+
         $response =  $this->epp_client->sendRequest($xml)->toJson();
 
         if ($response->status)
@@ -162,7 +179,7 @@ class Nominet
 
                     $xml = $firstPart . $text . $lastPart;
                 }
-                
+
                 $xml = str_replace($templateText, "", $xml);
                 break;
             }
@@ -175,25 +192,25 @@ class Nominet
         $totalOptionalTags = substr_count($xml, "{?");
 
         $regex = '/{\w*}/';
-                    
+
         for ($i = 0; $i < $totalOptionalTags; $i++)
         {
             $templateKeys = [];
             $startAt = strpos($xml, "{?");
             $endAt = strpos($xml, "?}") + 2;
-            
+
             $templateText = substr($xml, $startAt, $endAt - $startAt);
-            
+
             $totalParamTagInsideOptional = substr_count($templateText, "{");
-            
+
             preg_match_all($regex, $templateText, $matches);
-            
+
             foreach ($matches[0] as $key => $value) {
                 $templateKeys[] = substr($value, 1, -1);
             }
-            
+
             $isEmpty = true;
-            
+
             foreach ($templateKeys as $key => $value) {
                 $tempKey = "{" . $value . "}";
                 if (isset($mappers[$tempKey]) && gettype($mappers[$tempKey]) == 'string' && $mappers[$tempKey] != '')
@@ -213,10 +230,10 @@ class Nominet
 
                     $templateText = $firstPart . "\n" . $lastPart;
                 }
-                
+
                 $newXml = substr($xml, 0, $startAt) . $templateText . substr($xml, $endAt);
             }
-            
+
                 $endAt = strpos($xml, "?}");
             if ($isEmpty)
             {
@@ -246,4 +263,29 @@ class Nominet
 
         return $xml;
     }
+
+    /**
+     * Get the value of Extensions
+     *
+     * @return mixed
+     */
+    public function getExtensions()
+    {
+        return $this->extensions;
+    }
+
+    /**
+     * Set the value of Extensions
+     *
+     * @param mixed extensions
+     *
+     * @return self
+     */
+    public function setExtensions($extensions)
+    {
+        $this->extensions = $extensions;
+
+        return $this;
+    }
+
 }

@@ -59,7 +59,7 @@ class NominetReseller extends Nominet
 
     function create(Array $parameters)
     {
-        if ($this->login(Nominet::LOGIN_RESELLER)) {
+        if ($this->login(Nominet::RESELLER_ACCESS)) {
           $xml = file_get_contents($this->getDataXMLPath('create-reseller'));
 
           $mappers = $this->makeMapper([
@@ -76,7 +76,7 @@ class NominetReseller extends Nominet
 
     function delete()
     {
-        if ($this->login(Nominet::LOGIN_RESELLER)) {
+        if ($this->login(Nominet::RESELLER_ACCESS)) {
           $xml = file_get_contents($this->getDataXMLPath('delete-reseller'));
 
           $mappers = $this->makeMapper();
@@ -88,7 +88,7 @@ class NominetReseller extends Nominet
 
     function info()
     {
-        if ($this->login(Nominet::LOGIN_RESELLER)) {
+        if ($this->login(Nominet::RESELLER_ACCESS)) {
           $xml = file_get_contents($this->getDataXMLPath('info-reseller'));
 
           $mappers = $this->makeMapper();
@@ -100,7 +100,7 @@ class NominetReseller extends Nominet
 
     function list()
     {
-        if ($this->login(Nominet::LOGIN_RESELLER)) {
+        if ($this->login(Nominet::RESELLER_ACCESS)) {
           $xml = file_get_contents($this->getDataXMLPath('list-reseller'));
           return $this->epp_client->sendRequest($xml);
         }
@@ -108,7 +108,7 @@ class NominetReseller extends Nominet
 
     function update(Array $parameters)
     {
-        if ($this->login(Nominet::LOGIN_RESELLER)) {
+        if ($this->login(Nominet::RESELLER_ACCESS)) {
           $xml = file_get_contents($this->getDataXMLPath('update-reseller'));
 
           $mappers = $this->makeMapper([
