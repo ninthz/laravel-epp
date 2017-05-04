@@ -100,7 +100,37 @@ class NominetDomain extends Nominet
             $xml = file_get_contents($this->getDataXMLPath('create-domain'));
 
         $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
+        return $this->epp_client->sendRequest($xml);
+    }
+
+    public function update(Array $data, bool $extension = false)
+    {
+        // quit function if not login
+        // if (!$this->login()) return;
+
+        $mappers = [
+            '{domain_name}' => $data['domain_name'],
+            '{domain_add_hostObj}' => $data['domain_add_hostObj'] ?? null,
+            '{domain_remove_hostObj}' => $data['domain_remove_hostObj'] ?? null,
+            '{domain_registrant}' => $data['domain_registrant'] ?? null,
+            '{domain_pw}' => $data['domain_pw'] ?? null,
+        ];
+
+        if ($extension)
+        {
+            $xml = file_get_contents($this->getDataXMLPath('update-domain-with-extension'));
+            
+            $mappers['{domain_auto_bill}'] = $data['domain_auto_bill'] ?? null;
+            $mappers['{domain_next_bill}'] = $data['domain_next_bill'] ?? null;
+            $mappers['{domain_notes}'] = $data['domain_notes'] ?? null;
+            $mappers['{domain_reseller}'] = $data['domain_reseller'] ?? null;
+        }
+        else 
+            $xml = file_get_contents($this->getDataXMLPath('update-domain'));
+
+        $xml = $this->mapParameters($xml, $mappers);
+        print_r($xml);
+        // return $this->epp_client->sendRequest($xml);
     }
 
     public function delete(String $domainName)
