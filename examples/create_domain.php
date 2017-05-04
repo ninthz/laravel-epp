@@ -25,6 +25,6 @@ $data = [
     'domain_pw' => 'PW',
 ];
 
-$response = $nc->create($data, true);
+$response = $nc->create($data, false);
 
 var_dump($response);

@@ -148,7 +148,7 @@ class NominetContact extends Nominet
 
     public function create($data, $withExtension = false)
     {
-        if (true) {
+        if ($this->login()) {
 
             if(!$withExtension) {
                 $xml = file_get_contents($this->getDataXMLPath('contact-create'));
