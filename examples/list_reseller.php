@@ -4,15 +4,17 @@ require __DIR__.'/autoload.php';
 
 use LaravelEPP\Registrars\Nominets\NominetReseller;
 
-$username = getenv('NOMINET_TEST_USERNAME');
-$password = getenv('NOMINET_TEST_PASSWORD');
-$host = 'testbed-epp.nominet.org.uk';
+$username = getenv('NOMINET_LIVE_USERNAME');
+$password = getenv('NOMINET_LIVE_PASSWORD');
+$host = 'epp.nominet.org.uk';
 
 $nr = new NominetReseller();
 $nr->setHost($host);
 $nr->setUsername($username);
 $nr->setPassword($password);
 
-$response = $nr->list();
+$response = $nr->list()->toArray();
 
-var_dump($response);
+$result = $response['dom']->getListReseller();
+
+print_r($result);

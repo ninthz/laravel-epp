@@ -5,10 +5,11 @@ namespace LaravelEPP\Epp\Tools;
 use LaravelEPP\Registrars\Nominets\Mappers\DomainMapperTrait;
 use LaravelEPP\Registrars\Nominets\Mappers\ContactMapperTrait;
 use LaravelEPP\Registrars\Nominets\Mappers\HostMapperTrait;
+use LaravelEPP\Registrars\Nominets\Mappers\ResellerMapperTrait;
 
 class XMLDom extends \DOMDocument {
 
-	use DomainMapperTrait, ContactMapperTrait, HostMapperTrait;
+	use DomainMapperTrait, ContactMapperTrait, HostMapperTrait, ResellerMapperTrait;
 
 	public $ns_account = 'http://www.nominet.org.uk/epp/xml/nom-account-2.0';
 
