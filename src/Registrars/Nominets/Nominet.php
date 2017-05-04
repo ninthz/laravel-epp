@@ -196,7 +196,12 @@ class Nominet
             
             foreach ($templateKeys as $key => $value) {
                 $tempKey = "{" . $value . "}";
-                if (isset($mappers[$tempKey]) && $mappers[$tempKey] != '') {
+                if (isset($mappers[$tempKey]) && gettype($mappers[$tempKey]) == 'string' && $mappers[$tempKey] != '')
+                {
+                    $isEmpty = false;
+                }
+                else if (isset($mappers[$tempKey]) && is_array($mappers[$tempKey]) && count($mappers[$tempKey]) != 0)
+                {
                     $isEmpty = false;
                 }
                 else {
