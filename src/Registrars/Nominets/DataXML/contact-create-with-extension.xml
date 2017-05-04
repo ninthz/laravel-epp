@@ -21,8 +21,9 @@
                         <contact:cc>{contact_cc}</contact:cc>
                     </contact:addr>
                 </contact:postalInfo>
-                <contact:voice>{contact_voice}</contact:voice>
+                {?<contact:voice>{contact_voice}</contact:voice>?}
                 <contact:email>{contact_email}</contact:email>
+                {?<contact:fax>{contact_fax}</contact:voice>?}
                 <contact:authInfo>
                     <contact:pw>{contact_pw}</contact:pw>
                 </contact:authInfo>

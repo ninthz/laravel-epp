@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+    epp-1.0.xsd">
     <command>
         <create>
             <contact:create
-                    xmlns:contact="urn:ietf:params:xml:ns:contact-1.0"
-                    xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0
+                xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" 
+                xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0
                 contact-1.0.xsd">
                 <contact:id>{contact_id}</contact:id>
                 <contact:postalInfo type="loc">
@@ -20,13 +21,13 @@
                         <contact:cc>{contact_cc}</contact:cc>
                     </contact:addr>
                 </contact:postalInfo>
-                <contact:voice>{contact_voice}</contact:voice>
+                {?<contact:voice>{contact_voice}</contact:voice>?}
                 <contact:email>{contact_email}</contact:email>
+                {?<contact:fax>{contact_fax}</contact:voice>?}
                 <contact:authInfo>
                     <contact:pw>{contact_pw}</contact:pw>
                 </contact:authInfo>
             </contact:create>
         </create>
-        <clTRID>ABC-{clTRID}</clTRID>
     </command>
 </epp>

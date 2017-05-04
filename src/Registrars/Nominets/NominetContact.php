@@ -25,7 +25,7 @@ class NominetContact extends Nominet
       parent::__construct();
       $this->contactId = $contactId;
 
-      $this->setExtension([
+      $this->setExtensions([
           NominetExtension::CONTACT_NOM
       ]);
     }
@@ -168,8 +168,9 @@ class NominetContact extends Nominet
                 '{contact_sp}' => $data['contact_sp'],
                 '{contact_pc}' => $data['contact_pc'],
                 '{contact_cc}' => $data['contact_cc'],
-                '{contact_voice}' => $data['contact_voice'],
                 '{contact_email}' => $data['contact_email'],
+                '{contact_voice}' => $data['contact_voice'] ?? null,
+                '{contact_fax}' => $data['contact_fax'] ?? null,
                 '{contact_pw}' => $data['contact_pw'],
             ];
 
@@ -185,6 +186,7 @@ class NominetContact extends Nominet
             $mappers = $this->makeMapper($mappings);
 
             $xml = $this->mapParameters($xml, $mappers);
+
             return  $this->epp_client->sendRequest($xml);
         }
     }

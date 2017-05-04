@@ -46,4 +46,13 @@ trait ContactMapperTrait
 
 		return $contact_info;
 	}
+
+	public function contactCreateMapper()
+	{
+		$contact_info = [];
+		$contact_info['id'] = $this->GetDataItem($this->ns_contact, 'id');
+		$contact_info['crDate'] = $this->GetDataItem($this->ns_contact, 'crDate');
+
+		return $contact_info;
+	}
 }
