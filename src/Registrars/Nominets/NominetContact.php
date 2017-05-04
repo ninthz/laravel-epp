@@ -24,6 +24,10 @@ class NominetContact extends Nominet
     {
       parent::__construct();
       $this->contactId = $contactId;
+
+      $this->setExtension([
+          NominetExtension::CONTACT_NOM
+      ]);
     }
 
     public function __destruct()
@@ -182,6 +186,14 @@ class NominetContact extends Nominet
 
             $xml = $this->mapParameters($xml, $mappers);
             return  $this->epp_client->sendRequest($xml);
+        }
+    }
+
+    public function update($data)
+    {
+
+        if ($this->login()) {
+            // if ()
         }
     }
 
