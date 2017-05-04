@@ -140,24 +140,33 @@ class Nominet
 
     private function replaceArrayXmlParams(String $xml, String $replaceKey, Array $values): String
     {
-        $startAt = strpos($xml, "{[");
-        $endAt = strpos($xml, "]}");
+        $regexArrayTemplate = "/{\[.*]}/";
+        $regexKey = "/{\w*}/";
+        preg_match_all($regexArrayTemplate, $xml, $matches);
 
-        $templateText = substr($xml, $startAt, $endAt - $startAt);
-        $templateText = str_replace("{[", "", $templateText);
-        $templateText = str_replace("]}", "", $templateText);
+        foreach ($matches[0] as $key => $templateText) {
+            if (strpos($templateText, $replaceKey) !== false)
+            {
 
-        if (strpos($templateText, $replaceKey))
-        {
-            $text = "";
-            foreach ($values as $key => $value) {
-                $text .= str_replace($replaceKey, $value, $templateText);
-                $text .= "\n";
+                $firstPart = substr($xml, 0, strpos($xml, $templateText));
+
+                $lastPart = substr($xml, strpos($xml, $templateText));
+
+                if (strpos($templateText, $replaceKey))
+                {
+                    $text = "";
+                    foreach ($values as $key => $value) {
+                        $text .= substr(str_replace($replaceKey, $value, $templateText), 2, -2);
+                        $text .= "\n";
+                    }
+
+                    $xml = $firstPart . $text . $lastPart;
+                }
+                
+                $xml = str_replace($templateText, "", $xml);
+                break;
             }
-
-            $xml = substr($xml, 0, $startAt) . $text . substr($xml, $endAt + 2);
         }
-
         return $xml;
     }
 
