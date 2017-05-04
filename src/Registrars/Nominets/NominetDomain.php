@@ -106,7 +106,7 @@ class NominetDomain extends Nominet
     public function update(Array $data, bool $extension = false)
     {
         // quit function if not login
-        // if (!$this->login()) return;
+        if (!$this->login()) return;
 
         $mappers = [
             '{domain_name}' => $data['domain_name'],
@@ -129,8 +129,7 @@ class NominetDomain extends Nominet
             $xml = file_get_contents($this->getDataXMLPath('update-domain'));
 
         $xml = $this->mapParameters($xml, $mappers);
-        print_r($xml);
-        // return $this->epp_client->sendRequest($xml);
+        return $this->epp_client->sendRequest($xml);
     }
 
     public function delete(String $domainName)
