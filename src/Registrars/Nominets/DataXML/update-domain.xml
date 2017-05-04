@@ -22,9 +22,9 @@
                 </domain:rem>?}
                 <domain:chg>
                     {?<domain:registrant>{domain_registrant}</domain:registrant>?}
-                    <domain:authInfo>
-                        {?<domain:pw>{domain_pw}</domain:pw>?}
-                    </domain:authInfo>
+                    {?<domain:authInfo>
+                        <domain:pw>{domain_pw}</domain:pw>
+                    </domain:authInfo>?}
                 </domain:chg>
             </domain:update>
         </update>
