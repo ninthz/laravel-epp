@@ -4,6 +4,7 @@ namespace LaravelEPP\Registrars\Nominets;
 
 use LaravelEPP\EPP\EppClient;
 use LaravelEPP\EPP\Exceptions\UnableToLoginException;
+use LaravelEPP\EPP\Tools\XmlUtility;
 
 /**
  * Nominet Base Class
@@ -11,6 +12,8 @@ use LaravelEPP\EPP\Exceptions\UnableToLoginException;
 class Nominet
 {
     protected $epp_client;
+    protected $xmlUtility;
+
     protected $host = 'epp.nominet.org.uk';
     protected $port = 700;
     protected $timeout = 1;
@@ -42,6 +45,7 @@ class Nominet
             $this->username = config("epp.nominet.${mode}.username");
             $this->password = config("epp.nominet.${mode}.password");
         }
+        $this->xmlUtility = new XmlUtility();
         $this->epp_client = new EppClient($this->host);
         $this->data_xml_path = __DIR__.'/DataXML/';
     }
@@ -139,19 +143,32 @@ class Nominet
 
         $xml = $this->mapParameters($xml, $mappers);
 
-        $response =  $this->epp_client->sendRequest($xml)->toJson();
+        $response = $this->epp_client->sendRequest($xml);
+        $response = $this->parseXmlResponse($response->getXmlResponse(), 'resData', 'result');
 
-        if ($response->status)
+        if ($response['status'])
             $this->logged_id = true;
 
-        return $response->status;
+        return $response['status'];
+    }
+
+    public function parseXmlResponse(String $xml, bool $namespace = false): Array
+    {
+        $response = $this->xmlUtility->parseXmlResponse($xml, 'resData', 'result', $namespace);
+
+        $response['status']['status'] = $response['status']['code'] == 1000 || $response['status']['code'] == 1500;
+
+        return $response;
     }
 
     public function logout()
     {
         $xml = file_get_contents($this->getDataXMLPath('logout'));
-        $response = $this->epp_client->sendRequest($xml)->toJson();
-        if ($response->status)
+        
+        $response = $this->epp_client->sendRequest($xml);
+        $response = $this->parseXmlResponse($response->getXmlResponse(), 'resData', 'result');
+
+        if ($response['status'])
             $this->logged_in = false;
         return $response;
     }
@@ -297,18 +314,20 @@ class Nominet
      * @return EppClient|Nominet
      * @throws UnableToLoginException
      */
-    public function sendRequest($xmlFileName, $mappers = [], $extensions = [])
+    public function sendRequest($xmlFileName, $mappers = [], $extensions = [], String $loginType = null)
     {
         $this->setExtensions($extensions);
 
         // Throw an error if can't connect to Nominet
-        if(! $this->login()) throw new UnableToLoginException('Unable to login to Nominet');
+        if(! $this->login($loginType)) throw new UnableToLoginException('Unable to login to Nominet');
 
         // Map the file and mappers
         $xml = file_get_contents($this->getDataXMLPath($xmlFileName));
         $xml = $this->mapParameters($xml, $mappers);
 
-        return $this->epp_client->sendRequest($xml);
+        $response = $this->epp_client->sendRequest($xml);
+
+        return $this->parseXmlResponse($response->getXmlResponse(), 'resData', 'result');
     }
 
 }

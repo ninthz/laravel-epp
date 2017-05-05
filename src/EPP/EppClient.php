@@ -123,7 +123,7 @@ class EppClient
 
       $this->xmlResponse = $this->read();
 
-      $this->parseResponse();
+      // $this->parseResponse();
 
       return $this;
     }
