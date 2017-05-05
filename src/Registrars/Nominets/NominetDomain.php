@@ -193,4 +193,9 @@ class NominetDomain extends Nominet
             '{type}' => $type,
         ], [NominetExtension::STD_LOCKS]);
     }
+
+    public function unlockInvestigation(String $domainName)
+    {
+        return $this->unlock($domainName, 'investigation');
+    }
 }
