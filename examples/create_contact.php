@@ -2,7 +2,7 @@
 
 require __DIR__.'/autoload.php';
 
-use LaravelEPP\Registrars\Nominets\{NominetContact, NominetExtension};
+use LaravelEPP\Registrars\Nominets\{NominetContact};
 
 $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
@@ -12,9 +12,6 @@ $nc = new NominetContact('contact_id4');
 $nc->setHost($host);
 $nc->setUsername($username);
 $nc->setPassword($password);
-$nc->setExtensions([
-    NominetExtension::CONTACT_NOM,
-]);
 
 $data = [
     'contact_name' => 'Firstname Last',
@@ -36,6 +33,6 @@ $data = [
 //    'contact_opt_out' => 'Opt Out',
 ];
 
-$response = $nc->create($data, false)->toArray();
+$response = $nc->create($data)->toArray();
 
 var_dump($response['dom']->contactCreateMapper());

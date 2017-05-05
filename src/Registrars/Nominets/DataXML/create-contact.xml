@@ -29,7 +29,7 @@
                 </contact:authInfo>
             </contact:create>
         </create>
-        <extension>
+        {?<extension>
             <contact-ext:create
                     xmlns:contact-ext="http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0"
                     xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/contact-nom-ext-1.0 contact-nom-ext-1.0.xsd">
@@ -38,7 +38,7 @@
                 <contact-ext:co-no>{contact_co_no}</contact-ext:co-no>
                 <contact-ext:opt-out>{contact_opt_out}</contact-ext:opt-out>
             </contact-ext:create>
-        </extension>
+        </extension>?}
         <clTRID>ABC-{clTRID}</clTRID>
     </command>
 </epp>

@@ -113,49 +113,17 @@ class NominetContact extends Nominet
       }
     }
 
-    public function create($data, $withExtension = false)
+    public function create(Array $data = [])
     {
-        $this->setExtensions([
-            NominetExtension::CONTACT_NOM
-        ]);
+        $mappings = [];
 
-        if ($this->login()) {
-
-            if(!$withExtension) {
-                $xml = file_get_contents($this->getDataXMLPath('contact-create'));
-            } else {
-                $xml = file_get_contents($this->getDataXMLPath('contact-create-with-extension'));
-            }
-
-            $mappings = [
-                '{contact_name}' => $data['contact_name'],
-                '{contact_org}' => $data['contact_org'],
-                '{contact_street}' => $data['contact_street'],
-                '{contact_city}' => $data['contact_city'],
-                '{contact_sp}' => $data['contact_sp'],
-                '{contact_pc}' => $data['contact_pc'],
-                '{contact_cc}' => $data['contact_cc'],
-                '{contact_email}' => $data['contact_email'],
-                '{contact_voice}' => $data['contact_voice'] ?? null,
-                '{contact_fax}' => $data['contact_fax'] ?? null,
-                '{contact_pw}' => $data['contact_pw'],
-            ];
-
-            if($withExtension) {
-                $mappings = array_merge($mappings, [
-                    '{contact_trade_name}' => $data['contact_trade_name'],
-                    '{contact_type}' => $data['contact_type'],
-                    '{contact_co_no}' => $data['contact_co_no'],
-                    '{contact_opt_out}' => $data['contact_opt_out'],
-                ]);
-            }
-
-            $mappers = $this->makeMapper($mappings);
-
-            $xml = $this->mapParameters($xml, $mappers);
-
-            return  $this->epp_client->sendRequest($xml);
+        foreach ($data as $key => $value) {
+            $mappings['{'.$key.'}'] = $value;
         }
+
+        $mappers = $this->makeMapper($mappings);
+
+        return $this->sendRequest('create-contact', $mappers, [ NominetExtension::CONTACT_NOM ]);
     }
 
     public function update(Array $data = [])
@@ -168,7 +136,7 @@ class NominetContact extends Nominet
 
         $mappers = $this->makeMapper($mappings);
 
-        return $this->sendRequest('update-contact', $mappers, [NominetExtension::CONTACT_NOM]);
+        return $this->sendRequest('update-contact', $mappers, [ NominetExtension::CONTACT_NOM ]);
     }
 
 }
