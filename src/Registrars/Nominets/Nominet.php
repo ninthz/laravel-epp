@@ -289,17 +289,26 @@ class Nominet
         return $this;
     }
 
+    /**
+     * Send the request to Nominet
+     * @param string $xmlFileName
+     * @param array $mappers
+     * @param array $extensions
+     * @return EppClient|Nominet
+     * @throws UnableToLoginException
+     */
     public function sendRequest($xmlFileName, $mappers = [], $extensions = [])
     {
         $this->setExtensions($extensions);
 
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath($xmlFileName));
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        } else {
-            throw new UnableToLoginException('Unable to login to Nominet');
-        }
+        // Throw an error if can't connect to Nominet
+        if(! $this->login()) throw new UnableToLoginException('Unable to login to Nominet');
+
+        // Map the file and mappers
+        $xml = file_get_contents($this->getDataXMLPath($xmlFileName));
+        $xml = $this->mapParameters($xml, $mappers);
+
+        return $this->epp_client->sendRequest($xml);
     }
 
 }
