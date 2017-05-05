@@ -284,12 +284,12 @@ class Nominet
      */
     public function setExtensions($extensions)
     {
-        $this->extensions = $extensions;
+        $this->extensions = array_merge($this->extensions, $extensions);
 
         return $this;
     }
 
-    public function sendRequest($xmlFileName, $mappers, $extensions)
+    public function sendRequest($xmlFileName, $mappers = [], $extensions = [])
     {
         $this->setExtensions($extensions);
 
