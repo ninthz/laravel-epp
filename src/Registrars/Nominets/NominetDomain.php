@@ -185,4 +185,12 @@ class NominetDomain extends Nominet
     {
         return $this->sendRequest('lock-domain', ['{domain_name}' => $domainName], [NominetExtension::STD_LOCKS]);
     }
+
+    public function unlock(String $domainName, String $type)
+    {
+        return $this->sendRequest('unlock-domain', [
+            '{domain_name}' => $domainName,
+            '{type}' => $type,
+        ], [NominetExtension::STD_LOCKS]);
+    }
 }

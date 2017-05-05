@@ -118,6 +118,8 @@ class EppClient
 
       $this->xmlRequest->loadXML(str_replace('{clTRID}', $this->clTRID, $xml));
 
+      print_r($this->xmlRequest->saveXML() . "\n\n");
+
       if ($this->socket !== FALSE)
         fwrite($this->socket, $this->getXmlRequest());
 
