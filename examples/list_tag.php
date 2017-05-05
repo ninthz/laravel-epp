@@ -15,4 +15,4 @@ $nr->setPassword($password);
 
 $response = $nr->list();
 
-var_dump($response);
+print_r($response['dom']);

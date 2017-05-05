@@ -11,22 +11,19 @@ use LaravelEPP\Registrars\Nominets\Nominet;
 class NominetTag extends Nominet
 {
 
-  public function __construct()
-  {
-    parent::__construct();
-  }
-
-  public function __destruct()
-  {
-    $this->logout();
-    parent::__destruct();
-  }
-
-  public function list()
-  {
-    if ($this->login()) {
-      $xml = file_get_contents($this->getDataXMLPath('list-tag'));
-      return  $this->epp_client->sendRequest($xml);
+    public function __construct()
+    {
+        parent::__construct();
     }
-  }
+
+    public function __destruct()
+    {
+        $this->logout();
+        parent::__destruct();
+    }
+
+    public function list()
+    {
+        return $this->sendRequest('list-tag', 'tag:infData', [], [], Nominet::TAGLIST_ACCESS);
+    }
 }
