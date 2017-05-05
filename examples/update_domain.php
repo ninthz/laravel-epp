@@ -14,13 +14,14 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $data = [
-    'domain_name' => 'nominet-test111.co.uk',
-    'domain_add_hostObj' => [
-        'ns11.nominet.org.uk',
-        'ns12.nominet.org.uk',
+    'domain_name' => 'domain1.co.uk',
+    'domain_rem_hostObj' => [
+        'example2.com',
     ],
     'domain_pw' => 'PW',
+
+    'domain_notes' => 'notes',
 ];
 
-$response = $nc->update($data, true)->toArray();
-var_dump($response['dom']);
+$response = $nc->update($data, true);
+print_r($response['dom']);
