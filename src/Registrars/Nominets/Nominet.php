@@ -314,7 +314,7 @@ class Nominet
      * @return EppClient|Nominet
      * @throws UnableToLoginException
      */
-    public function sendRequest($xmlFileName, $mappers = [], $extensions = [], String $loginType = null)
+    public function sendRequest($xmlFileName, $mappers = [], $extensions = [], String $loginType = Nominet::GENERAL_ACCESS)
     {
         $this->setExtensions($extensions);
 
