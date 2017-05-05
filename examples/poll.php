@@ -13,6 +13,6 @@ $nr->setHost($host);
 $nr->setUsername($username);
 $nr->setPassword($password);
 
-$response = $nr->poll("req")->toArray();
+$response = $nr->poll("req");
 
-var_dump($response);
+print_r($response['status']);
