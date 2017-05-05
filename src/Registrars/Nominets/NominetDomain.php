@@ -158,10 +158,11 @@ class NominetDomain extends Nominet
 
     public function lock(String $domainName, String $type)
     {
-        return $this->sendRequest('lock-domain', [
+        $mappers = [
             '{domain_name}' => $domainName,
             '{type}' => $type,
-        ], [NominetExtension::STD_LOCKS]);
+        ];
+        return $this->sendRequest('lock-domain', '', $mappers, [NominetExtension::STD_LOCKS]);
     }
 
     public function lockInvestigation(String $domainName)
@@ -171,10 +172,11 @@ class NominetDomain extends Nominet
 
     public function unlock(String $domainName, String $type)
     {
-        return $this->sendRequest('unlock-domain', [
+        $mappers = [
             '{domain_name}' => $domainName,
             '{type}' => $type,
-        ], [NominetExtension::STD_LOCKS]);
+        ];
+        return $this->sendRequest('unlock-domain', '', $mappers, [NominetExtension::STD_LOCKS]);
     }
 
     public function unlockInvestigation(String $domainName)

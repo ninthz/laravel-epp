@@ -18,5 +18,3 @@ $response = $nd->unlock('nominet-test111.co.uk', 'investigation');
 // NOTE: Use unlockInvestigation() to unlock and set the type to investigation
 
 print_r($response['status']);
-
-//var_dump($response);

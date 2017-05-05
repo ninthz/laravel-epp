@@ -15,4 +15,4 @@ $nd->setPassword($password);
 
 $response = $nd->lockInvestigation('nominet-test111.co.uk');
 
-print_r($response);
+print_r($response['status']);
