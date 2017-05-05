@@ -13,6 +13,6 @@ $nc->setHost($host);
 $nc->setUsername($username);
 $nc->setPassword($password);
 
-$response = $nc->check()->toArray();
+$response = $nc->check();
 
-var_dump($response['dom']->getCheckHost());
+print_r($response['response']);

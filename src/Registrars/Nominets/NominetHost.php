@@ -33,14 +33,10 @@ class NominetHost extends Nominet
      */
     public function check()
     {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('check-host'));
-            $mappers = [
-                '{host_name}' => $this->hostname,
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{host_name}' => $this->hostname,
+        ];
+        return $this->sendRequest('check-host', 'host:chkData', $mappers, [], Nominet::HOST_ACCESS);
     }
 
     /**
