@@ -157,9 +157,9 @@ class Nominet
         return $response['status'];
     }
 
-    public function parseXmlResponse(String $xml, bool $namespace = false): Array
+    public function parseXmlResponse(String $xml, String $responseKey = 'resData', bool $namespace = false): Array
     {
-        $response = $this->xmlUtility->parseXmlResponse($xml, 'resData', 'result', $namespace);
+        $response = $this->xmlUtility->parseXmlResponse($xml, $responseKey, 'result', $namespace);
 
         $response['status']['status'] = $response['status']['code'] == 1000 || $response['status']['code'] == 1500;
 
@@ -319,7 +319,7 @@ class Nominet
      * @return EppClient|Array|Nominet
      * @throws UnableToLoginException
      */
-    public function sendRequest($xmlFileName, $mappers = [], $extensions = [], String $loginType = Nominet::GENERAL_ACCESS)
+    public function sendRequest($xmlFileName, String $responseKey = 'resData', $mappers = [], $extensions = [], String $loginType = Nominet::GENERAL_ACCESS)
     {
         $this->setExtensions($extensions);
 
@@ -332,7 +332,7 @@ class Nominet
 
         $response = $this->epp_client->sendRequest($xml);
 
-        return $this->parseXmlResponse($response->getXmlResponse(), 'resData', 'result');
+        return $this->parseXmlResponse($response->getXmlResponse(), $responseKey, 'result');
     }
 
 }

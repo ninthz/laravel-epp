@@ -100,7 +100,7 @@ class NominetReseller extends Nominet
 
     function list()
     {
-        return $this->sendRequest('list-reseller', [], [], Nominet::RESELLER_ACCESS);
+        return $this->sendRequest('list-reseller', 'reseller:listData', [], [], Nominet::RESELLER_ACCESS);
     }
 
     function update(Array $parameters)
