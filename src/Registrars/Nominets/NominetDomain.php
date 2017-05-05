@@ -61,14 +61,10 @@ class NominetDomain extends Nominet
 
     public function list(int $year, int $month)
     {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('list-domain'));
-            $mappers = [
-                '{year_month}' => "{$year}-{$month}",
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{year_month}' => "{$year}-{$month}",
+        ];
+        return $this->sendRequest('list-domain', 'list:listData', $mappers, [NominetExtension::STD_LIST]);
     }
 
     public function create(Array $data, bool $extension = false)
