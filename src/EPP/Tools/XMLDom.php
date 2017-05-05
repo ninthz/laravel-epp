@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelEPP\Epp\Tools;
+namespace LaravelEPP\EPP\Tools;
 
 use LaravelEPP\Registrars\Nominets\Mappers\DomainMapperTrait;
 use LaravelEPP\Registrars\Nominets\Mappers\ContactMapperTrait;
