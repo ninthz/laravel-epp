@@ -314,8 +314,10 @@ class Nominet
     /**
      * Send the request to Nominet
      * @param string $xmlFileName
+     * @param String $responseKey
      * @param array $mappers
      * @param array $extensions
+     * @param String $loginType
      * @return EppClient|Array|Nominet
      * @throws UnableToLoginException
      */
