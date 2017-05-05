@@ -53,7 +53,7 @@ class NominetHost extends Nominet
             '{host_name}' => $this->hostname,
         ];
 
-        return $this->sendRequest('host-info', '', $mappers, [], Nominet::HOST_ACCESS);
+        return $this->sendRequest('host-info', 'host:infData', $mappers, [], Nominet::HOST_ACCESS);
     }
 
     /**
