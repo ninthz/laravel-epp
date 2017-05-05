@@ -334,7 +334,7 @@ class Nominet
 
         $response = $this->epp_client->sendRequest($xml);
 
-        return $this->parseXmlResponse($response->getXmlResponse(), $responseKey, 'result');
+        return $this->parseXmlResponse($response->getXmlResponse(), $responseKey);
     }
 
 }
