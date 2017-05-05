@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/epp-1.0 epp-1.0.xsd">
+  <response>
+    <result code="1000" name="asc">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <reseller:listData
+        xmlns:reseller="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0"
+        xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/nom-reseller-1.0 nom-reseller-1.0.xsd"
+        count="25">
+        <reseller:infData>
+          <reseller:reference>1</reseller:reference>
+          <reseller:tradingName>tradingName1</reseller:tradingName>
+          <reseller:url>http://www.example1.com/</reseller:url>
+          <reseller:email>test1@example.com</reseller:email>
+          <reseller:voice>+1234</reseller:voice>
+        </reseller:infData>
+        <reseller:infData>
+          <reseller:reference>2</reseller:reference>
+          <reseller:tradingName>tradingName2</reseller:tradingName>
+          <reseller:url>http://www.example2.com/</reseller:url>
+          <reseller:email>test2@example.com</reseller:email>
+        </reseller:infData>
+        <reseller:infData>
+          <reseller:reference>3</reseller:reference>
+          <reseller:tradingName>tradingName3</reseller:tradingName>
+          <reseller:url>http://www.example3.com/</reseller:url>
+          <reseller:email>test3@example.com</reseller:email>
+        </reseller:infData>
+      </reseller:listData>
+    </resData>
+    <trID>
+      <clTRID>EPP-abcd</clTRID>
+      <svTRID>123456</svTRID>
+    </trID>
+  </response>
+</epp>
