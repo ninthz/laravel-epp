@@ -100,10 +100,7 @@ class NominetReseller extends Nominet
 
     function list()
     {
-        if ($this->login(Nominet::RESELLER_ACCESS)) {
-          $xml = file_get_contents($this->getDataXMLPath('list-reseller'));
-          return $this->epp_client->sendRequest($xml);
-        }
+        return $this->sendRequest('list-reseller', [], [], Nominet::RESELLER_ACCESS);
     }
 
     function update(Array $parameters)
@@ -122,7 +119,4 @@ class NominetReseller extends Nominet
           return $this->epp_client->sendRequest($xml);
         }
     }
-
-
-
 }
