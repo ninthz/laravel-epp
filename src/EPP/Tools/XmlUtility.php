@@ -24,7 +24,7 @@ class XmlUtility {
 
     public function parseXmlResponse(String $xml, String $resKey = 'resData', String $resStatusKey = null, bool $namespace = false): Array
     {
-        $responseArr = $this->xml2array(file_get_contents($xml), 3, 'tag');
+        $responseArr = $this->xml2array($xml, 3, 'tag');
 
         if (!isset($responseArr['epp']['response'])) return [];
 
