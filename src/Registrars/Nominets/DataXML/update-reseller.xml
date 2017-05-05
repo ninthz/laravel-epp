@@ -6,8 +6,8 @@
           <reseller:reference>{reference}</reseller:reference>
           <reseller:tradingName>{trading_name}</reseller:tradingName>
           <reseller:url>{url}</reseller:url>
-          <reseller:email>{email}</reseller:email>
-          <reseller:voice>{telephone}</reseller:voice>
+          {?<reseller:email>{email}</reseller:email>?}
+          {?<reseller:voice>{voice}</reseller:voice>?}
         </reseller:update>
       </update>
       <clTRID>EPP-{clTRID}</clTRID>

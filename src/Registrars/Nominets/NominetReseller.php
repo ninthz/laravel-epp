@@ -66,19 +66,12 @@ class NominetReseller extends Nominet
             '{voice}' => $parameters['telephone'] ?? null,
         ]);
 
-        return $this->sendRequest('create-reseller', 'reseller:infData', $mappers, [], Nominet::RESELLER_ACCESS);
+        return $this->sendRequest('create-reseller', '', $mappers, [], Nominet::RESELLER_ACCESS);
     }
 
     function delete()
     {
-        if ($this->login(Nominet::RESELLER_ACCESS)) {
-          $xml = file_get_contents($this->getDataXMLPath('delete-reseller'));
-
-          $mappers = $this->makeMapper();
-
-          $xml = $this->mapParameters($xml, $mappers);
-          return  $this->epp_client->sendRequest($xml);
-        }
+        return $this->sendRequest('delete-reseller', '', $this->makeMapper(), [], Nominet::RESELLER_ACCESS);
     }
 
     function info()
@@ -93,18 +86,13 @@ class NominetReseller extends Nominet
 
     function update(Array $parameters)
     {
-        if ($this->login(Nominet::RESELLER_ACCESS)) {
-          $xml = file_get_contents($this->getDataXMLPath('update-reseller'));
+        $mappers = $this->makeMapper([
+            '{trading_name}' => $parameters['trading_name'] ?? null,
+            '{url}' =>  $parameters['url'] ?? null,
+            '{email}' => $parameters['email'] ?? null,
+            '{voice}' => $parameters['voice'] ?? null,
+        ]);
 
-          $mappers = $this->makeMapper([
-            '{trading_name}' => $parameters['trading_name'] ?? '',
-            '{url}' =>  $parameters['url'] ?? '',
-            '{email}' => $parameters['email'] ?? '',
-            '{telephone}' => $parameters['telephone'] ?? '',
-          ]);
-
-          $xml = $this->mapParameters($xml, $mappers);
-          return $this->epp_client->sendRequest($xml);
-        }
+        return $this->sendRequest('update-reseller', 'reseller:infData', $mappers, [], Nominet::RESELLER_ACCESS);
     }
 }

@@ -4,15 +4,14 @@ require __DIR__.'/autoload.php';
 
 use LaravelEPP\Registrars\Nominets\NominetReseller;
 
-$username = getenv('NOMINET_USERNAME');
-$password = getenv('NOMINET_PASSWORD');
-$host = 'epp.nominet.org.uk';
+$username = getenv('NOMINET_TEST_USERNAME');
+$password = getenv('NOMINET_TEST_PASSWORD');
+$host = 'testbed-epp.nominet.org.uk';
 
-$nr = new NominetReseller('117419');
+$nr = new NominetReseller('RESELLER01');
 $nr->setHost($host);
 $nr->setUsername($username);
 $nr->setPassword($password);
-
 
 $parameters = [
   'trading_name' => 'NetEarth UK Ltd',
@@ -21,6 +20,6 @@ $parameters = [
   'telephone' => '+44.8707707154',
 ];
 
-$response = $nr->update($parameters)->toJson();
+$response = $nr->update($parameters);
 
-var_dump($response);
+print_r($response['dom']);
