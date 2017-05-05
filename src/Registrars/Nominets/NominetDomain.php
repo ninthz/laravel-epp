@@ -71,9 +71,6 @@ class NominetDomain extends Nominet
     {
         if ($data['domain_unit'] !== 'y' && $data['domain_unit'] !== 'm') throw new \Exception("Invalid argument the domain_unit must be 'm' or 'y'");
 
-        // quit function if not login
-        if (!$this->login()) return;
-
         $mappers = [
             '{domain_name}' => $data['domain_name'],
             '{domain_unit}' => $data['domain_unit'],
@@ -85,18 +82,17 @@ class NominetDomain extends Nominet
 
         if ($extension)
         {
-            $xml = file_get_contents($this->getDataXMLPath('create-domain-with-extension'));
+            $xml = 'create-domain-with-extension';
             
-            $mappers['{domain_auto_bill}'] = $data['domain_auto_bill'];
-            $mappers['{domain_next_bill}'] = $data['domain_next_bill'];
-            $mappers['{domain_notes}'] = $data['domain_notes'];
-            $mappers['{domain_reseller}'] = $data['domain_reseller'];
+            $mappers['{domain_auto_bill}'] = $data['domain_auto_bill'] ?? null;
+            $mappers['{domain_next_bill}'] = $data['domain_next_bill'] ?? null;
+            $mappers['{domain_notes}'] = $data['domain_notes'] ?? null;
+            $mappers['{domain_reseller}'] = $data['domain_reseller'] ?? null;
         }
         else 
-            $xml = file_get_contents($this->getDataXMLPath('create-domain'));
+            $xml = 'create-domain';
 
-        $xml = $this->mapParameters($xml, $mappers);
-        return $this->epp_client->sendRequest($xml);
+        return $this->sendRequest($xml, 'domain:creData', $mappers, [NominetExtension::DOMAIN_NOM]);
     }
 
     public function update(Array $data, bool $extension = false)
