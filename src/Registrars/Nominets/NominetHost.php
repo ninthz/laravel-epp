@@ -53,7 +53,7 @@ class NominetHost extends Nominet
             '{host_name}' => $this->hostname,
         ];
 
-        return $this->sendRequest('host-info', $mappers, [], Nominet::HOST_ACCESS);
+        return $this->sendRequest('host-info', '', $mappers, [], Nominet::HOST_ACCESS);
     }
 
     /**
@@ -63,14 +63,11 @@ class NominetHost extends Nominet
      */
     public function create(String $ip)
     {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('host-create'));
-            $mappers = [
-                '{host_name}' => $this->hostname,
-                '{host_ip}' => $ip,
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{host_name}' => $this->hostname,
+            '{host_ip}' => $ip,
+        ];
+
+        return $this->sendRequest('host-create', 'host:creData', $mappers, [], Nominet::HOST_ACCESS);
     }
 }

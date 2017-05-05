@@ -6,12 +6,12 @@ $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
-$nh = new \LaravelEPP\Registrars\Nominets\NominetHost('example.com');
+$nh = new \LaravelEPP\Registrars\Nominets\NominetHost('example07.com');
 $nh->setHost($host);
 $nh->setUsername($username);
 $nh->setPassword($password);
 
 $ip = "127.0.0.1";
-$response = $nh->create($ip)->toArray();
+$response = $nh->create($ip);
 
-//var_dump($response);
+print_r($response['response']);
