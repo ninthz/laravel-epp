@@ -14,7 +14,7 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $data = [
-    'domain_name' => 'domain4.co.uk',
+    'domain_name' => 'domain5.co.uk',
     'domain_unit' => 'y',
     'domain_period' => '1',
     'domain_hostObj' => [
@@ -28,4 +28,4 @@ $data = [
 
 $response = $nc->create($data, true);
 
-print_r($response);
+print_r($response['response']);
