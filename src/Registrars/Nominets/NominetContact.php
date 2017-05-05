@@ -24,10 +24,6 @@ class NominetContact extends Nominet
     {
       parent::__construct();
       $this->contactId = $contactId;
-
-      $this->setExtensions([
-          NominetExtension::CONTACT_NOM
-      ]);
     }
 
     public function __destruct()
@@ -93,39 +89,6 @@ class NominetContact extends Nominet
       }
     }
 
-    public function updateType($type = '')
-    {
-      if ($this->login()) {
-        $xml = file_get_contents($this->getDataXMLPath('update-contact-type'));
-
-        $mappers = $this->makeMapper([
-          '{type}' => $type
-        ]);
-
-        $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
-      }
-    }
-
-    public function updateTradingName($tradingName = '')
-    {
-      if ($this->login()) {
-        $xml = file_get_contents($this->getDataXMLPath('update-contact-trading-name'));
-
-        $mappers = $this->makeMapper([
-          '{trading_name}' => $tradingName
-        ]);
-
-        $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
-      }
-    }
-
-    public function removeTradingName()
-    {
-      return $this->updateTradingName();
-    }
-
     public function check()
     {
       if ($this->login()) {
@@ -152,6 +115,10 @@ class NominetContact extends Nominet
 
     public function create($data, $withExtension = false)
     {
+        $this->setExtensions([
+            NominetExtension::CONTACT_NOM
+        ]);
+
         if ($this->login()) {
 
             if(!$withExtension) {
@@ -191,12 +158,17 @@ class NominetContact extends Nominet
         }
     }
 
-    public function update($data)
+    public function update(Array $data = [])
     {
+        $mappings = [];
 
-        if ($this->login()) {
-            // if ()
+        foreach ($data as $key => $value) {
+            $mappings['{'.$key.'}'] = $value;
         }
+
+        $mappers = $this->makeMapper($mappings);
+
+        return $this->sendRequest('update-contact', $mappers, [NominetExtension::CONTACT_NOM]);
     }
 
 }
