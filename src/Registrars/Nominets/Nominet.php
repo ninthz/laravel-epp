@@ -3,6 +3,7 @@
 namespace LaravelEPP\Registrars\Nominets;
 
 use LaravelEPP\EPP\EppClient;
+use LaravelEPP\EPP\Exceptions\UnableToLoginException;
 
 /**
  * Nominet Base Class
@@ -286,6 +287,19 @@ class Nominet
         $this->extensions = $extensions;
 
         return $this;
+    }
+
+    public function sendRequest($xmlFileName, $mappers, $extensions)
+    {
+        $this->setExtensions($extensions);
+
+        if ($this->login()) {
+            $xml = file_get_contents($this->getDataXMLPath($xmlFileName));
+            $xml = $this->mapParameters($xml, $mappers);
+            return  $this->epp_client->sendRequest($xml);
+        } else {
+            throw new UnableToLoginException('Unable to login to Nominet');
+        }
     }
 
 }

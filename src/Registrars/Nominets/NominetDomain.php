@@ -183,17 +183,6 @@ class NominetDomain extends Nominet
 
     public function lock(String $domainName)
     {
-        $this->setExtensions([
-            NominetExtension::STD_LOCKS,
-        ]);
-
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('lock-domain'));
-            $mappers = [
-                '{domain_name}' => $domainName,
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
+        return $this->sendRequest('lock-domain', ['{domain_name}' => $domainName], [NominetExtension::STD_LOCKS]);
     }
 }
