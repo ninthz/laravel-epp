@@ -137,29 +137,23 @@ class NominetDomain extends Nominet
         if (count($dates) != 3 || strlen($dates[0]) != 4 || $dates[1] < 1 || $dates[1] > 12 || $dates[2] < 1 || $dates[2] > 31)
             throw new \Exception("Invalid argument format the curExpDate must be yyyy-mm-dd");
 
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('renew-domain'));
-            $mappers = [
-                '{domain_name}' => $domainName,
-                '{domain_curExpDate}' => $curExpDate,
-                '{domain_unit}' => $unit,
-                '{domain_period}' => $period,
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{domain_name}' => $domainName,
+            '{domain_curExpDate}' => $curExpDate,
+            '{domain_unit}' => $unit,
+            '{domain_period}' => $period,
+        ];
+
+        return $this->sendRequest('renew-domain', 'domain:renData', $mappers);
     }
 
     public function unrenew(Array $domainNames)
     {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('unrenew-domain'));
-            $mappers = [
-                '{domain_name}' => $domainNames,
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{domain_name}' => $domainNames,
+        ];
+
+        return $this->sendRequest('unrenew-domain', 'domain:renData', $mappers, [NominetExtension::STD_UNRENEW]);
     }
 
     public function lock(String $domainName, String $type)
