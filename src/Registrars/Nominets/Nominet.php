@@ -30,6 +30,7 @@ class Nominet
     const GENERAL_ACCESS = 'ga';
     const RESELLER_ACCESS = 'ra';
     const TAGLIST_ACCESS = 'ta';
+    const HOST_ACCESS = 'ha';
 
     function __construct()
     {
@@ -127,13 +128,17 @@ class Nominet
                 NominetEPPSchema::DOMAIN,
                 NominetEPPSchema::CONTACT
             ];
-        } elseif ($loginType === self::RESELLER_ACCESS) {
+        } else if ($loginType === self::RESELLER_ACCESS) {
             $mappers['{schema}'] = [
                 NominetEPPSchema::NOM_RESELLER
             ];
-        } elseif ($loginType === self::TAGLIST_ACCESS) {
+        } else if ($loginType === self::TAGLIST_ACCESS) {
             $mappers['{schema}'] = [
                 NominetEPPSchema::NOM_TAGLIST
+            ];
+        } else if ($loginType === self::HOST_ACCESS) {
+            $mappers['{schema}'] = [
+                NominetEPPSchema::HOST
             ];
         } else {
             throw new \Exception("Invalid argument loginType.");
@@ -164,7 +169,7 @@ class Nominet
     public function logout()
     {
         $xml = file_get_contents($this->getDataXMLPath('logout'));
-        
+
         $response = $this->epp_client->sendRequest($xml);
         $response = $this->parseXmlResponse($response->getXmlResponse(), 'resData', 'result');
 
