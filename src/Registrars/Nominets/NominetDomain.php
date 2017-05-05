@@ -167,4 +167,13 @@ class NominetDomain extends Nominet
     {
         return $this->unlock($domainName, 'investigation');
     }
+
+    public function transfer($domainName, $registrant)
+    {
+        $mappers = [
+            '{domain_name}' => $domainName,
+            '{domain_registrant}' => $registrant,
+        ];
+        return $this->sendRequest('transfer-domain', '', $mappers, [NominetExtension::STD_RELEASE]);
+    }
 }
