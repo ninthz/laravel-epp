@@ -30,19 +30,6 @@ class NominetDomain extends Nominet
         return $this->sendRequest('info-domain', 'domain:infData', $mappers);
     }
 
-    public function updateReseller($parameters)
-    {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('update-domain-reseller'));
-            $mappers = [
-                '{reference}'    => $parameters['reference'] ?? '',
-                '{domain}' => $parameters['domain'] ?? '',
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
-    }
-
     public function check(Array $domainNames)
     {
         $mappers = [
@@ -115,14 +102,11 @@ class NominetDomain extends Nominet
 
     public function delete(String $domainName)
     {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('delete-domain'));
-            $mappers = [
-                '{domain_name}' => $domainName,
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{domain_name}' => $domainName,
+        ];
+
+        return $this->sendRequest('delete-domain', '', $mappers, [NominetExtension::DOMAIN_NOM]);
     }
 
     /**
