@@ -44,12 +44,12 @@ class XmlUtility {
         else
             $result['response'] = $responseArr[$resKey] ?? [];
 
-        $result['extension'] = $responseArr['extension'];
+        $result['extension'] = $responseArr['extension'] ?? null;
 
         if (!$namespace)
         {
             $result['response'] = $this->removeNamespace($result['response']);
-            $result['extension'] = isset($result['extension']) ? $this->removeNamespace($result['response']) : null;
+            $result['extension'] = isset($responseArr['extension']) ? $this->removeNamespace($result['response']) : null;
         }
 
         $result['trID'] = $responseArr['trID'] ?? null;
