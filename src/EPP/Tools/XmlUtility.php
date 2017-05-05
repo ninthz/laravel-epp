@@ -50,6 +50,8 @@ class XmlUtility {
         }
 
         $result['trID'] = $responseArr['trID'] ?? null;
+
+        $result['dom'] = $xml;
         
         return $result;
     }
