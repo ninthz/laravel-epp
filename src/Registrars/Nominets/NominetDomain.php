@@ -24,14 +24,10 @@ class NominetDomain extends Nominet
 
     public function info($parameters)
     {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('info-domain'));
-            $mappers = [
-                '{domain}' => $parameters['domain'] ?? '',
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{domain}' => $parameters['domain'],
+        ];
+        return $this->sendRequest('info-domain', 'domain:infData', $mappers);
     }
 
     public function updateReseller($parameters)
@@ -49,14 +45,10 @@ class NominetDomain extends Nominet
 
     public function check(Array $domainNames)
     {
-        if ($this->login()) {
-            $xml = file_get_contents($this->getDataXMLPath('check-domain'));
-            $mappers = [
-                '{domain_name}' => $domainNames,
-            ];
-            $xml = $this->mapParameters($xml, $mappers);
-            return  $this->epp_client->sendRequest($xml);
-        }
+        $mappers = [
+            '{domain_name}' => $domainNames,
+        ];
+        return $this->sendRequest('check-domain', 'domain:chkData', $mappers);
     }
 
     public function list(int $year, int $month)

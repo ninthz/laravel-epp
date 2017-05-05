@@ -14,6 +14,6 @@ $nc->setUsername($username);
 $nc->setPassword($password);
 
 $domainName = ["sound-offs.com", "sound-offs2.com"];
-$response = $nc->check($domainName)->toArray();
+$response = $nc->check($domainName);
 
-var_dump($response['dom']->domainCheckMapper());
+print_r($response['response']);
