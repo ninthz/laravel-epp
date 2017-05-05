@@ -18,13 +18,12 @@ $data = [
     'domain_unit' => 'y',
     'domain_period' => '2',
     'domain_hostObj' => [
-        'ns11.nominet.org.uk',
-        'ns12.nominet.org.uk',
+        'example.com',
     ],
-    'domain_registrant' => 'ab-c123456',
-    'domain_pw' => 'PW',
+    'domain_registrant' => 'contact_id4',
+    'domain_pw' => 'n7tobH44LR8F4uN',
 ];
 
 $response = $nc->create($data, false);
 
-var_dump($response);
+//var_dump($response);
