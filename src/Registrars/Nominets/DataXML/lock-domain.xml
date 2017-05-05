@@ -9,7 +9,7 @@
                     xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/std-locks-1.0
                   std-locks-1.0.xsd"
                     object="domain"
-                    type="investigation">
+                    type="{type}">
                 <l:domainName>{domain_name}</l:domainName>
             </l:lock>
         </update>

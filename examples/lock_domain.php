@@ -13,6 +13,6 @@ $nd->setHost($host);
 $nd->setUsername($username);
 $nd->setPassword($password);
 
-$response = $nd->lock('nominet-test111.co.uk');
+$response = $nd->lockInvestigation('nominet-test111.co.uk');
 
-//var_dump($response);
+print_r($response);
