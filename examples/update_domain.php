@@ -24,4 +24,4 @@ $data = [
 ];
 
 $response = $nc->update($data, true);
-print_r($response['dom']);
+print_r($response['status']);
