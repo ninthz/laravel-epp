@@ -49,7 +49,7 @@ class XmlUtility {
         if (!$namespace)
         {
             $result['response'] = $this->removeNamespace($result['response']);
-            $result['extension'] = isset($responseArr['extension']) ? $this->removeNamespace($result['response']) : null;
+            $result['extension'] = isset($responseArr['extension']) ? $this->removeNamespace($result['extension']) : null;
         }
 
         $result['trID'] = $responseArr['trID'] ?? null;
