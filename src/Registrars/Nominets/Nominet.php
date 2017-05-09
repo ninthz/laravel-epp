@@ -332,6 +332,8 @@ class Nominet
         $xml = file_get_contents($this->getDataXMLPath($xmlFileName));
         $xml = $this->mapParameters($xml, $mappers);
 
+        print_r($xml);
+
         $response = $this->epp_client->sendRequest($xml);
 
         return $this->parseXmlResponse($response->getXmlResponse(), $responseKey);
