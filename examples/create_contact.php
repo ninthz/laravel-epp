@@ -8,10 +8,10 @@ $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
-$nc = new NominetContact('contact_id4');
-$nc->setHost($host);
-$nc->setUsername($username);
-$nc->setPassword($password);
+$nominetContact = new NominetContact('contact_id1');
+$nominetContact->setHost($host);
+$nominetContact->setUsername($username);
+$nominetContact->setPassword($password);
 
 $data = [
     'contact_name' => 'Firstname Last',
@@ -33,6 +33,6 @@ $data = [
 //    'contact_opt_out' => 'Opt Out',
 ];
 
-$response = $nc->create($data)->toArray();
+$response = $nominetContact->create($data);
 
-var_dump($response['dom']->contactCreateMapper());
+var_dump($response);

@@ -62,13 +62,13 @@ class NominetDomain extends Nominet
         if ($extension)
         {
             $xml = 'create-domain-with-extension';
-            
+
             $mappers['{domain_auto_bill}'] = $data['domain_auto_bill'] ?? null;
             $mappers['{domain_next_bill}'] = $data['domain_next_bill'] ?? null;
             $mappers['{domain_notes}'] = $data['domain_notes'] ?? null;
             $mappers['{domain_reseller}'] = $data['domain_reseller'] ?? null;
         }
-        else 
+        else
             $xml = 'create-domain';
 
         return $this->sendRequest($xml, 'domain:creData', $mappers, [NominetExtension::DOMAIN_NOM]);
@@ -88,13 +88,13 @@ class NominetDomain extends Nominet
         if ($extension)
         {
             $xml = 'update-domain-with-extension';
-            
+
             $mappers['{domain_auto_bill}'] = $data['domain_auto_bill'] ?? null;
             $mappers['{domain_next_bill}'] = $data['domain_next_bill'] ?? null;
             $mappers['{domain_notes}'] = $data['domain_notes'] ?? null;
             $mappers['{domain_reseller}'] = $data['domain_reseller'] ?? null;
         }
-        else 
+        else
             $xml = 'update-domain';
 
         return $this->sendRequest($xml, 'domain:creData', $mappers, [NominetExtension::DOMAIN_NOM]);
@@ -149,11 +149,6 @@ class NominetDomain extends Nominet
         return $this->sendRequest('lock-domain', '', $mappers, [NominetExtension::STD_LOCKS]);
     }
 
-    public function lockInvestigation(String $domainName)
-    {
-        return $this->lock($domainName, 'investigation');
-    }
-
     public function unlock(String $domainName, String $type)
     {
         $mappers = [
@@ -163,10 +158,37 @@ class NominetDomain extends Nominet
         return $this->sendRequest('unlock-domain', '', $mappers, [NominetExtension::STD_LOCKS]);
     }
 
+    public function lockDataQuality(String $domainName)
+    {
+        return $this->lock($domainName, NominetLockType::DATA_QUALITY);
+    }
+
+    public function unlockDataQuality(String $domainName)
+    {
+        return $this->unlock($domainName, NominetLockType::DATA_QUALITY);
+    }
+
+    public function lockInvestigation(String $domainName)
+    {
+        return $this->lock($domainName, NominetLockType::INVESTIGATION);
+    }
+
     public function unlockInvestigation(String $domainName)
     {
-        return $this->unlock($domainName, 'investigation');
+        return $this->unlock($domainName, NominetLockType::INVESTIGATION);
     }
+
+    public function lockOptOut(String $domainName)
+    {
+        return $this->unlock($domainName, NominetLockType::OPT_OUT);
+    }
+
+    public function unlockOptOut(String $domainName)
+    {
+        return $this->unlock($domainName, NominetLockType::OPT_OUT);
+    }
+
+
 
     public function transfer($domainName, $registrant)
     {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <command>
+        <update>
+            <l:unlock xmlns:l="http://www.nominet.org.uk/epp/xml/std-locks-1.0"
+                    xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/std-locks-1.0 std-locks-1.0.xsd"
+                    object="contact"
+                    type="{type}">
+                <l:contactId>{contact_id}</l:contactId>
+            </l:unlock>
+        </update>
+        <clTRID>EPP-{clTRID}</clTRID>
+    </command>
+</epp>

@@ -12,23 +12,19 @@ class NominetContact extends Nominet
 {
     private $contactId;
 
-    const CONTACT_TYPE_INDIVIDUAL = 'IND';
-
-    const CONTACT_TYPE_FOREIGN_INDIVIDUAL = 'FIND';
-
-    const CONTACT_TYPE_LIMITED = 'LTD';
-
-    const CONTACT_TYPE_NON_UK_COPERATION = 'FCORP';
+    private $lockTypes = [];
 
     public function __construct($contactId = '')
     {
       parent::__construct();
+
       $this->contactId = $contactId;
     }
 
     public function __destruct()
     {
       $this->logout();
+
       parent::__destruct();
     }
 
@@ -123,7 +119,7 @@ class NominetContact extends Nominet
 
         $mappers = $this->makeMapper($mappings);
 
-        return $this->sendRequest('create-contact', $mappers, [ NominetExtension::CONTACT_NOM ]);
+        return $this->sendRequest('create-contact', '', $mappers, [ NominetExtension::CONTACT_NOM ]);
     }
 
     public function update(Array $data = [])
@@ -139,4 +135,53 @@ class NominetContact extends Nominet
         return $this->sendRequest('update-contact', $mappers, [ NominetExtension::CONTACT_NOM ]);
     }
 
+    /*
+     * LOCK & UNLOCK function Zone
+     * LOCK have 3 types at now is
+     * ['data quality', 'investigation', 'opt-out']
+     */
+
+    protected function lock($type)
+    {
+        $mappers = $this->makeMapper(['{type}' => $type]);
+
+        return $this->sendRequest('lock-contact', '', $mappers, [ NominetExtension::STD_LOCKS ]);
+    }
+
+    private function unlock($type)
+    {
+        $mappers = $this->makeMapper(['{type}' => $type]);
+
+        return $this->sendRequest('unlock-contact', '', $mappers, [ NominetExtension::STD_LOCKS ]);
+    }
+
+    public function lockDataQuality()
+    {
+        return $this->lock(NominetLockType::DATA_QUALITY);
+    }
+
+    public function unlockDataQuality()
+    {
+        return $this->unlock(NominetLockType::DATA_QUALITY);
+    }
+
+    public function lockInvestigation()
+    {
+        return $this->lock(NominetLockType::INVESTIGATION);
+    }
+
+    public function unlockInvestigation()
+    {
+        return $this->unlock(NominetLockType::INVESTIGATION);
+    }
+
+    public function lockOptOut()
+    {
+        return $this->lock(NominetLockType::OPT_OUT);
+    }
+
+    public function unlockOptOut()
+    {
+        return $this->unlock(NominetLockType::OPT_OUT);
+    }
 }
