@@ -4,19 +4,15 @@ require __DIR__.'/autoload.php';
 
 use LaravelEPP\Registrars\Nominets\NominetContact;
 
-$username = getenv('NOMINET_LIVE_USERNAME');
-$password = getenv('NOMINET_LIVE_PASSWORD');
-$host = 'epp.nominet.org.uk';
+$username = getenv('NOMINET_TEST_USERNAME');
+$password = getenv('NOMINET_TEST_PASSWORD');
+$host = 'testbed-epp.nominet.org.uk';
 
-$nc = new NominetContact();
-$nc->setHost($host);
-$nc->setUsername($username);
-$nc->setPassword($password);
+$nominetContact = new NominetContact('contact_id1');
+$nominetContact->setHost($host);
+$nominetContact->setUsername($username);
+$nominetContact->setPassword($password);
 
-$parameters = [
-  'contact_id' => 'NEO_63785952',
-  'privacy' => false
-];
-$response = $nc->privacy($parameters);
+$response = $nominetContact->privacyOff();
 
 var_dump($response);

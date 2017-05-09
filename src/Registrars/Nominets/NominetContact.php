@@ -141,4 +141,18 @@ class NominetContact extends Nominet
     {
         return $this->unlock(NominetLockType::OPT_OUT);
     }
+
+    public function privacyOn()
+    {
+        $mappers = $this->makeMapper(['{opt}' => '0']);
+
+        return $this->sendRequest('privacy-contact', '', $mappers, [ NominetExtension::CONTACT_NOM ]);
+    }
+
+    public function privacyOff()
+    {
+        $mappers = $this->makeMapper(['{opt}' => '1']);
+
+        return $this->sendRequest('privacy-contact', '', $mappers, [ NominetExtension::CONTACT_NOM ]);
+    }
 }
