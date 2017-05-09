@@ -45,68 +45,25 @@ class NominetContact extends Nominet
       return array_merge($parameters, ['{contact_id}' => $this->contactId]);
     }
 
-    public function optOut($optOut)
-    {
-      if ($this->login()) {
-        $xml = file_get_contents($this->getDataXMLPath('optout-contact'));
-
-        $mappers = $this->makeMapper([
-          '{opt_out}' => ($optOut == true ? 'Y' : 'N')
-        ]);
-
-        $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
-      }
-    }
-
-    public function privacy($privacy)
-    {
-      if ($this->login()) {
-        $xml = file_get_contents($this->getDataXMLPath('privacy-contact'));
-
-        $mappers = $this->makeMapper([
-          '{privacy}' => ($privacy == true ? '0' : '1')
-        ]);
-
-        $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
-      }
-    }
-
     public function info()
     {
-      if ($this->login()) {
-        $xml = file_get_contents($this->getDataXMLPath('info-contact'));
+      $mappers = $this->makeMapper();
 
-        $mappers = $this->makeMapper();
-
-        $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
-      }
+      return $this->sendRequest('info-contact', 'contact:infData', $mappers, [ NominetExtension::CONTACT_NOM ]);
     }
 
     public function check()
     {
-      if ($this->login()) {
-        $xml = file_get_contents($this->getDataXMLPath('check-contact'));
+      $mappers = $this->makeMapper();
 
-        $mappers = $this->makeMapper();
-
-        $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
-      }
+      return $this->sendRequest('check-contact', '', $mappers, [ NominetExtension::CONTACT_NOM ]);
     }
 
     public function validate()
     {
-      if ($this->login()) {
-        $xml = file_get_contents($this->getDataXMLPath('validate-contact'));
+      $mappers = $this->makeMapper();
 
-        $mappers = $this->makeMapper();
-
-        $xml = $this->mapParameters($xml, $mappers);
-        return  $this->epp_client->sendRequest($xml);
-      }
+      return $this->sendRequest('validate-contact', '', $mappers, [ NominetExtension::CONTACT_NOM, NominetExtension::NOM_DATA_QUALITY ]);
     }
 
     public function create(Array $data = [])
