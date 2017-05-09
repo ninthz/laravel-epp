@@ -8,11 +8,11 @@ $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
-$nc = new NominetDomain();
-$nc->setHost($host);
-$nc->setUsername($username);
-$nc->setPassword($password);
+$nominetContact = new NominetDomain();
+$nominetContact->setHost($host);
+$nominetContact->setUsername($username);
+$nominetContact->setPassword($password);
 
-$response = $nc->transfer('domain1.co.uk', 'contact_id4');
+$response = $nominetContact->transfer('domain1.co.uk', 'contact_id4');
 
 print_r($response['status']);

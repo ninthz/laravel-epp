@@ -8,12 +8,12 @@ $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
-$nd = new \LaravelEPP\Registrars\Nominets\NominetDomain();
-$nd->setHost($host);
-$nd->setUsername($username);
-$nd->setPassword($password);
+$nominetDomain = new \LaravelEPP\Registrars\Nominets\NominetDomain();
+$nominetDomain->setHost($host);
+$nominetDomain->setUsername($username);
+$nominetDomain->setPassword($password);
 
-$response = $nd->unlock('nominet-test111.co.uk', 'investigation');
+$response = $nominetDomain->unlock('nominet-test111.co.uk', 'investigation');
 
 // NOTE: Use unlockInvestigation() to unlock and set the type to investigation
 

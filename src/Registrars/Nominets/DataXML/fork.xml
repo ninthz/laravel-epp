@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <command>
+        <update>
+            <f:fork xmlns:f="http://www.nominet.org.uk/epp/xml/std-fork-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.nominet.org.uk/epp/xml/std-fork-1.0 std-fork-1.0.xsd">
+                <f:contactId>{contact_id}</f:contactId>
+                <f:newContactId>{new_contact_id}</f:newContactId>
+                {[<f:domainName>{domain_name}</f:domainName>]}
+            </f:fork>
+        </update>
+        <clTRID>EPP-{clTRID}</clTRID>
+    </command>
+</epp>

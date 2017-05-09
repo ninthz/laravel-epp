@@ -8,14 +8,14 @@ $username = getenv('NOMINET_LIVE_USERNAME');
 $password = getenv('NOMINET_LIVE_PASSWORD');
 $host = 'epp.nominet.org.uk';
 
-$nr = new NominetDomain();
-$nr->setHost($host);
-$nr->setUsername($username);
-$nr->setPassword($password);
+$nominetReseller = new NominetDomain();
+$nominetReseller->setHost($host);
+$nominetReseller->setUsername($username);
+$nominetReseller->setPassword($password);
 
 $year = 2016;
 $month = 11;
 
-$response = $nr->list($year, $month);
+$response = $nominetReseller->list($year, $month);
 
 print_r($response['response']);

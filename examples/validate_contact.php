@@ -10,11 +10,11 @@ $host = 'epp.nominet.org.uk';
 
 $contactId = '11DA596DDD880-01';
 
-$nc = new NominetContact($contactId);
-$nc->setHost($host);
-$nc->setUsername($username);
-$nc->setPassword($password);
+$nominetContact = new NominetContact($contactId);
+$nominetContact->setHost($host);
+$nominetContact->setUsername($username);
+$nominetContact->setPassword($password);
 
-$response = $nc->validate()->toJson();
+$response = $nominetContact->validate()->toJson();
 
 print_r($response);

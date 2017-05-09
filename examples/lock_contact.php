@@ -8,11 +8,11 @@ $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
-$nd = new \LaravelEPP\Registrars\Nominets\NominetContact('contact_id1');
-$nd->setHost($host);
-$nd->setUsername($username);
-$nd->setPassword($password);
+$nominetDomain = new \LaravelEPP\Registrars\Nominets\NominetContact('contact_id1');
+$nominetDomain->setHost($host);
+$nominetDomain->setUsername($username);
+$nominetDomain->setPassword($password);
 
-$response = $nd->lockInvestigation();
+$response = $nominetDomain->lockInvestigation();
 
 print_r($response['status']);

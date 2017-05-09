@@ -8,11 +8,11 @@ $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
-$nr = new NominetDomain();
-$nr->setHost($host);
-$nr->setUsername($username);
-$nr->setPassword($password);
+$nominetReseller = new NominetDomain();
+$nominetReseller->setHost($host);
+$nominetReseller->setUsername($username);
+$nominetReseller->setPassword($password);
 
-$response = $nr->unrenew(["domain1.co.uk"]);
+$response = $nominetReseller->unrenew(["domain1.co.uk"]);
 
 print_r($response['response']);

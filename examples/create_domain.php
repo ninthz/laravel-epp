@@ -8,10 +8,10 @@ $username = getenv('NOMINET_TEST_USERNAME');
 $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
-$nc = new NominetDomain();
-$nc->setHost($host);
-$nc->setUsername($username);
-$nc->setPassword($password);
+$nominetDomain = new NominetDomain();
+$nominetDomain->setHost($host);
+$nominetDomain->setUsername($username);
+$nominetDomain->setPassword($password);
 
 $data = [
     'domain_name' => 'domain5.co.uk',
@@ -26,6 +26,6 @@ $data = [
     'domain_notes' => 'notes',
 ];
 
-$response = $nc->create($data, true);
+$response = $nominetDomain->create($data, true);
 
 print_r($response['response']);

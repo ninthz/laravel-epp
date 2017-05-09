@@ -9,11 +9,11 @@ $password = getenv('NOMINET_TEST_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
 
 $contactId = 'contact_id1';
-$nc = new NominetContact($contactId);
-$nc->setHost($host);
-$nc->setUsername($username);
-$nc->setPassword($password);
+$nominetContact = new NominetContact($contactId);
+$nominetContact->setHost($host);
+$nominetContact->setUsername($username);
+$nominetContact->setPassword($password);
 
-$response = $nc->check();
+$response = $nominetContact->check();
 
 var_dump($response);

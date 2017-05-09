@@ -15,24 +15,21 @@ class NominetHandshake extends Nominet
         parent::__destruct();
     }
 
-    private function makeMapper(Array $data)
-    {
-        return [
-            '{case_id}' => $data['case_id'],
-            '{registrant}' => $data['registrant']
-        ];
-    }
-
     function accept(Array $data)
     {
-        $mappers = $this->makeMapper($data);
+        $mappers = ['{case_id}' => $data['case_id']];
+
+        // OPTIONAL : Registrant
+        if (!empty($data)) {
+            $mappers['{registrant}'] = $data['registrant'];
+        }
 
         return $this->sendRequest('handshake-accept', 'h:hanData', $mappers, [ NominetExtension::STD_HANDSHAKE ]);
     }
 
     function reject(Array $data)
     {
-        $mappers = $this->makeMapper($data);
+        $mappers = ['{case_id}' => $data['case_id']];
 
         return $this->sendRequest('handshake-reject', 'h:hanData', $mappers, [ NominetExtension::STD_HANDSHAKE ]);
     }
