@@ -89,7 +89,7 @@ class NominetContact extends Nominet
 
         $mappers = $this->makeMapper($mappings);
 
-        return $this->sendRequest('update-contact', $mappers, [ NominetExtension::CONTACT_NOM ]);
+        return $this->sendRequest('update-contact', '', $mappers, [ NominetExtension::CONTACT_NOM ]);
     }
 
     /*
