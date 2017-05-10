@@ -95,4 +95,13 @@ class NominetReseller extends Nominet
 
         return $this->sendRequest('update-reseller', 'reseller:infData', $mappers, [], Nominet::RESELLER_ACCESS);
     }
+
+    public function release(String $registrant, String $registrarTag)
+    {
+        $mappers = [
+            '{reseller_registrant}' => $registrant,
+            '{reseller_registrarTag}' => $registrarTag,
+        ];
+        return $this->sendRequest('release-reseller', 'r:releasePending', $mappers, [NominetExtension::STD_RELEASE]);
+    }
 }
