@@ -188,8 +188,6 @@ class NominetDomain extends Nominet
         return $this->unlock($domainName, NominetLockType::OPT_OUT);
     }
 
-
-
     public function transfer($domainName, $registrant)
     {
         $mappers = [
@@ -197,5 +195,14 @@ class NominetDomain extends Nominet
             '{domain_registrant}' => $registrant,
         ];
         return $this->sendRequest('transfer-domain', '', $mappers, [NominetExtension::STD_RELEASE]);
+    }
+
+    public function release(String $domainName, String $registrarTag)
+    {
+        $mappers = [
+            '{domain_name}' => $domainName,
+            '{domain_registrarTag}' => $registrarTag,
+        ];
+        return $this->sendRequest('release-domain', 'r:releasePending', $mappers, [NominetExtension::STD_RELEASE]);
     }
 }
