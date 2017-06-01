@@ -19,6 +19,7 @@ class EppClient
     private $xmlResponse;
     private $xmlRequest;
     private $response = [];
+    private $certificatePath = null;
 
     public function __construct($host, $port = 700, $timeout = 30, $protocol = 'ssl')
     {
@@ -70,14 +71,32 @@ class EppClient
       return $this->protocol;
     }
 
+    public function enableCertification($path)
+    {
+      return $this->certificatePath = $path;
+    }
+
+    public function disableCertification()
+    {
+      return $this->certificatePath = null;
+    }
+
     public function connect()
     {
       $target = sprintf('%s://%s:%d', $this->protocol, $this->host, $this->port);
       $context = stream_context_create();
+
+      if ($this->certificatePath != null) {
+          stream_context_set_option($context, 'ssl', 'local_cert', $this->certificatePath);
+          stream_context_set_option($context, 'ssl', 'allow_self_signed', false);
+      }
+
       $this->socket = stream_socket_client($target, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context);
+
       if (!$this->socket) {
         throw new EppException("Error connecting to $target: $errstr (code $errno)", $errno, null, $errstr);
       }
+
       return $this->read();
     }
 
@@ -91,13 +110,14 @@ class EppClient
     public function read()
     {
       if($this->socket !== FALSE) {
-        if(@feof($this->socket))
-          return new EppException('connection closed by remote server');
+        if(@feof($this->socket)) {
+            return new EppException('connection closed by remote server1');
+        }
 
         $hdr = @fread($this->socket, 4);
 
         if (empty($hdr) && feof($this->socket))
-          return new EppException('connection closed by remote server');
+          return new EppException('connection closed by remote server2');
 
         if (empty($hdr))
           return new EppException('Error reading from server');
@@ -105,8 +125,7 @@ class EppClient
         $unpacked 	= unpack('N', $hdr);
         $length 	= $unpacked[1];
 
-        if($length < 5)
-          return new EppException('Got a bad frame header length of '.$length.' bytes from server');
+        if($length < 5) return new EppException('Got a bad frame header length of '.$length.' bytes from server');
 
         return fread($this->socket, ($length - 4));
       }
@@ -117,11 +136,13 @@ class EppClient
       $this->clTRID = $this->generateRandomString(32);
 
       $this->xmlRequest->loadXML(str_replace('{clTRID}', $this->clTRID, $xml));
-
+      print_r($this->getXmlRequest());
       if ($this->socket !== FALSE)
         fwrite($this->socket, $this->getXmlRequest());
 
       $this->xmlResponse = $this->read();
+
+      var_dump($this->xmlResponse); exit();
 
       // $this->parseResponse();
 
@@ -141,11 +162,15 @@ class EppClient
 
     private function generateRandomString($length) {
       $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
       $charactersLength = strlen($characters);
+
       $randomString = '';
+
       for ($i = 0; $i < $length; $i++) {
           $randomString .= $characters[rand(0, $charactersLength - 1)];
       }
+
       return $randomString;
     }
 
