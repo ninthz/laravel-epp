@@ -83,18 +83,6 @@ class Nominet
         $this->data_xml_path = $path;
     }
 
-    public function setHost($host)
-    {
-        $this->epp_client->disconnect();
-        $this->epp_client->setHost($host);
-        $this->epp_client->connect();
-    }
-
-    public function getHost()
-    {
-        return $this->epp_client->getHost();
-    }
-
     public function getXmlResponse()
     {
         return $this->epp_client->getXmlResponse();
@@ -112,8 +100,15 @@ class Nominet
         return $this->data_xml_path.$filename;
     }
 
+    public function eppClient()
+    {
+        return $this->epp_client;
+    }
+
     public function login($loginType = self::GENERAL_ACCESS)
     {
+        $this->epp_client->connect();
+
         $templateName = 'login';
         $mappers = [
           '{clID}'  => $this->getUsername(),
@@ -152,7 +147,7 @@ class Nominet
         $response = $this->parseXmlResponse($response->getXmlResponse(), 'resData', 'result');
 
         if ($response['status'])
-            $this->logged_id = true;
+            $this->logged_in = true;
 
         return $response['status'];
     }
@@ -326,7 +321,9 @@ class Nominet
         $this->setExtensions($extensions);
 
         // Throw an error if can't connect to Nominet
-        if(! $this->login($loginType)) throw new UnableToLoginException('Unable to login to Nominet');
+        if (!$this->logged_in) {
+            if(! $this->login($loginType)) throw new UnableToLoginException('Unable to login to Nominet');
+        }
 
         // Map the file and mappers
         $xml = file_get_contents($this->getDataXMLPath($xmlFileName));

@@ -12,7 +12,7 @@ $host = 'blog.epp.nominet.uk';
 
 try {
     $nominet = new Nominet();
-    $nominet->setHost($host);
+    $nominet->eppClient()->setHost($host);
     $nominet->setUsername($username);
     $nominet->setPassword($password);
     $nominet->enableCertification('/etc/pki/tls/certs/pooler.centralnoc.com.cert');

@@ -28,7 +28,6 @@ class EppClient
       $this->port = $port;
       $this->timeout = $timeout;
       $this->protocol = $protocol;
-      $this->connect();
     }
 
     public function setHost($host)
