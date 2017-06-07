@@ -38,7 +38,7 @@ class XmlUtility {
             $statusAttr = $responseArr["{$resStatusKey}_attr"] ?? null;
             $result['status'] = $status + $statusAttr;
         }
-        
+
         if ($resKey)
             $result['response'] = $responseArr['resData'][$resKey] ?? [];
         else
@@ -55,7 +55,7 @@ class XmlUtility {
         $result['trID'] = $responseArr['trID'] ?? null;
 
         $result['dom'] = $xml;
-        
+
         return $result;
     }
 
@@ -118,8 +118,8 @@ class XmlUtility {
                     //Set all the attributes in a array called 'attr'
                 }
             }
+            
             // See tag status and do the needed.
-            //echo"<br/> Type:".$type;
             if ($type == "open") {
                 //The starting of the tag '<tag>'
                 $parent[$level - 1] = &$current;

@@ -83,12 +83,14 @@ class EppClient
     public function connect()
     {
       $target = sprintf('%s://%s:%d', $this->protocol, $this->host, $this->port);
-      $context = stream_context_create();
+      $context = stream_context_create(
+				['ssl' => ['local_cert'=> $this->certificatePath]]
+            );
 
-      if ($this->certificatePath != null) {
-          stream_context_set_option($context, 'ssl', 'local_cert', $this->certificatePath);
-          stream_context_set_option($context, 'ssl', 'allow_self_signed', false);
-      }
+    //   if ($this->certificatePath != null) {
+    //       stream_context_set_option($context, 'ssl', 'local_cert', $this->certificatePath);
+    //       stream_context_set_option($context, 'ssl', 'allow_self_signed', true);
+    //   }
 
       $this->socket = stream_socket_client($target, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context);
 
@@ -135,7 +137,7 @@ class EppClient
       $this->clTRID = $this->generateRandomString(32);
 
       $this->xmlRequest->loadXML(str_replace('{clTRID}', $this->clTRID, $xml));
-      print_r($this->getXmlRequest());
+
       if ($this->socket !== FALSE)
         fwrite($this->socket, $this->getXmlRequest());
 
