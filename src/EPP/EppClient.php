@@ -70,9 +70,11 @@ class EppClient
       return $this->protocol;
     }
 
-    public function enableCertification($path)
+    public function enableCertification($certificatePath, $certificateKey = '')
     {
-      return $this->certificatePath = $path;
+       $this->certificatePath = $certificatePath;
+       $this->certificateKey = $certificatePath;
+       return $this;
     }
 
     public function disableCertification()
@@ -83,14 +85,14 @@ class EppClient
     public function connect()
     {
       $target = sprintf('%s://%s:%d', $this->protocol, $this->host, $this->port);
-      $context = stream_context_create(
-				['ssl' => ['local_cert'=> $this->certificatePath]]
-            );
+      $context = stream_context_create();
 
-    //   if ($this->certificatePath != null) {
-    //       stream_context_set_option($context, 'ssl', 'local_cert', $this->certificatePath);
-    //       stream_context_set_option($context, 'ssl', 'allow_self_signed', true);
-    //   }
+      if ($this->certificatePath != null) {
+          stream_context_set_option($context, 'ssl', 'crypto_method', STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT);
+          stream_context_set_option($context, 'ssl', 'local_cert', $this->certificatePath);
+          stream_context_set_option($context, 'ssl', 'local_pk', $this->certificateKey);
+          stream_context_set_option($context, 'ssl', 'allow_self_signed', true);
+      }
 
       $this->socket = stream_socket_client($target, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context);
 
