@@ -73,7 +73,7 @@ class EppClient
     public function enableCertification($certificatePath, $certificateKey = '')
     {
        $this->certificatePath = $certificatePath;
-       $this->certificateKey = $certificatePath;
+       $this->certificateKey = $certificateKey;
        return $this;
     }
 
