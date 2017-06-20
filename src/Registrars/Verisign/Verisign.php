@@ -24,11 +24,6 @@ class Verisign
     protected $logged_in = false;
     protected $extensions = [];
 
-    const GENERAL_ACCESS = 'ga';
-    const RESELLER_ACCESS = 'ra';
-    const TAGLIST_ACCESS = 'ta';
-    const HOST_ACCESS = 'ha';
-
     function __construct()
     {
         if(function_exists('config'))
