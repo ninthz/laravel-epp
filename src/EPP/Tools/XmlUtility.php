@@ -22,7 +22,7 @@ class XmlUtility {
         return $result;
     }
 
-    public function parseXmlResponse(String $xml, String $resKey = 'resData', String $resStatusKey = null, bool $namespace = false): Array
+    public function parseXmlResponse(String $xml, String $resKey = 'resData', String $resStatusKey = null, bool $namespace = false): array
     {
         $responseArr = $this->xml2array($xml, 3, 'tag');
 
