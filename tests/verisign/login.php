@@ -6,8 +6,8 @@ use LaravelEPP\Registrars\Verisign\Verisign;
 
 $username = getenv('VERISIGN_USERNAME');
 $password = getenv('VERISIGN_PASSWORD');
-$cert = '/Users/pangpondpon/Code/certs/cert.pem';
-$privateKey = '/Users/pangpondpon/Code/certs/private.key';
+$cert = getenv('CERT');
+$privateKey = getenv('PRIVATE_KEY');
 $host = 'epp-ote.verisign-grs.com';
 
 try {
