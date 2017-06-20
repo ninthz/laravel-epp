@@ -145,10 +145,6 @@ class EppClient
 
       $this->xmlResponse = $this->read();
 
-      var_dump($this->xmlResponse); exit();
-
-      // $this->parseResponse();
-
       return $this;
     }
 
