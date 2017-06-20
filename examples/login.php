@@ -8,14 +8,14 @@ use LaravelEPP\Registrars\Nominets\{Nominet, NominetExtension};
 $username = getenv('NOMINET_DOT_BLOG_USERNAME');
 $password = getenv('NOMINET_DOT_BLOG_PASSWORD');
 $host = 'testbed-epp.nominet.org.uk';
-$host = 'blog.epp.nominet.uk';
+$host = 'testbed-blog.epp.nominet.uk';
 
 try {
     $nominet = new Nominet();
     $nominet->eppClient()->setHost($host);
+    $nominet->eppClient()->enableCertification('/etc/pki/tls/certs/ca-bundle.crt');
     $nominet->setUsername($username);
     $nominet->setPassword($password);
-    $nominet->enableCertification('/etc/pki/tls/certs/pooler.centralnoc.com.cert');
     $nominet->setExtensions([
         NominetExtension::DOMAIN_NOM,
         NominetExtension::CONTACT_NOM,

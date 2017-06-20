@@ -112,26 +112,26 @@ class EppClient
 
     public function read()
     {
-      if($this->socket !== FALSE) {
-        if(@feof($this->socket)) {
-            return new EppException('connection closed by remote server1');
+        if($this->socket !== FALSE) {
+            if(@feof($this->socket)) {
+                return new EppException('connection closed by remote server1');
+            }
+
+            $hdr = @fread($this->socket, 4);
+
+            if (empty($hdr) && feof($this->socket))
+                return new EppException('connection closed by remote server2');
+
+            if (empty($hdr))
+                return new EppException('Error reading from server');
+
+            $unpacked 	= unpack('N', $hdr);
+            $length 	= $unpacked[1];
+
+            if($length < 5) return new EppException('Got a bad frame header length of '.$length.' bytes from server');
+
+            return fread($this->socket, ($length - 4));
         }
-
-        $hdr = @fread($this->socket, 4);
-
-        if (empty($hdr) && feof($this->socket))
-          return new EppException('connection closed by remote server2');
-
-        if (empty($hdr))
-          return new EppException('Error reading from server');
-
-        $unpacked 	= unpack('N', $hdr);
-        $length 	= $unpacked[1];
-
-        if($length < 5) return new EppException('Got a bad frame header length of '.$length.' bytes from server');
-
-        return fread($this->socket, ($length - 4));
-      }
     }
 
     public function sendRequest($xml)
@@ -141,7 +141,7 @@ class EppClient
       $this->xmlRequest->loadXML(str_replace('{clTRID}', $this->clTRID, $xml));
 
       if ($this->socket !== FALSE)
-        fwrite($this->socket, $this->getXmlRequest());
+        fwrite($this->socket, $this->getBigEdianLength().$this->getXmlRequest());
 
       $this->xmlResponse = $this->read();
 
@@ -206,5 +206,10 @@ class EppClient
     public function toJson()
     {
         return (object) $this->response;
+    }
+
+    public function getBigEdianLength()
+    {
+        return pack('N', strlen($this->getXmlRequest())+4);
     }
 }
