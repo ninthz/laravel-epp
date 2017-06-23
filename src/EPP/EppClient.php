@@ -90,6 +90,7 @@ class EppClient
       if ($this->certificatePath != null) {
           stream_context_set_option($context, 'ssl', 'local_cert', $this->certificatePath);
           stream_context_set_option($context, 'ssl', 'local_pk', $this->certificateKey);
+          stream_context_set_option($context, 'ssl', 'verify_peer', true);
           stream_context_set_option($context, 'ssl', 'allow_self_signed', true);
       }
 
