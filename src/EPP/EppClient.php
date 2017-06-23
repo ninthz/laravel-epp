@@ -88,13 +88,16 @@ class EppClient
       $context = stream_context_create();
 
       if ($this->certificatePath != null) {
-          stream_context_set_option($context, 'ssl', 'crypto_method', STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT);
           stream_context_set_option($context, 'ssl', 'local_cert', $this->certificatePath);
           stream_context_set_option($context, 'ssl', 'local_pk', $this->certificateKey);
           stream_context_set_option($context, 'ssl', 'allow_self_signed', true);
       }
 
       $this->socket = stream_socket_client($target, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context);
+
+      if ($this->certificatePath != null) {
+        @stream_socket_enable_crypto($this->socket, true, STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT);
+      }
 
       if (!$this->socket) {
         throw new EppException("Error connecting to $target: $errstr (code $errno)", $errno, null, $errstr);
